@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoPages" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd5780ca-1565-41b8-a524-c09120ae7dfd">
+	<property name="ireport.zoom" value="1.3310000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="MaLoaiSP" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM SANPHAM WHERE loaiSP_MaLoaiSP = $P{MaLoaiSP}]]>
+	</queryString>
+	<field name="MaSP" class="java.lang.String"/>
+	<field name="loaiSP_MaLoaiSP" class="java.lang.String"/>
+	<field name="nhaCungCap_MaNCC" class="java.lang.String"/>
+	<field name="TenSP" class="java.lang.String"/>
+	<field name="SoLuong" class="java.lang.Integer"/>
+	<field name="DonVi" class="java.lang.String"/>
+	<field name="Gia" class="java.lang.String"/>
+	<field name="Anh" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="66" backcolor="#000000" uuid="d4dd7142-f7bf-4a17-8b14-dbbe0c714c5a"/>
+				<staticText>
+					<reportElement style="Title" x="0" y="0" width="486" height="66" uuid="01a48835-28d8-41c0-8bb9-f8abd7c41a6f"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="48" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Siêu thị ACE MART]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="SubTitle" x="486" y="20" width="316" height="46" uuid="eb792e7c-f44d-4f52-8756-52bd8a0a5bd2"/>
+					<textElement textAlignment="Center">
+						<font size="30" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Danh Sách Sản Phẩm]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="0" y="70" width="802" height="32" forecolor="#000000" backcolor="#CC0000" uuid="2093ef31-beef-494b-a344-f40d40347520"/>
+				<textField pattern="EEEEE dd/MM/yyyy">
+					<reportElement x="658" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="be1c8719-e46f-42ae-a866-7a4948ed67ea"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="97" height="18" forecolor="#000000" uuid="6f00afd2-f329-4ceb-a43a-ee1be99e7a55"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Mã Sản Phẩm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="97" y="0" width="104" height="18" forecolor="#000000" uuid="64bfc0ec-9216-4ce2-9fba-bc23a6cf53e2"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Mã Loại Sản Phẩm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="201" y="0" width="124" height="18" forecolor="#000000" uuid="1dcc5a6a-6554-4c87-b21c-6a2b481fefd1"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Mã Nhà Cung Cấp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="325" y="0" width="146" height="18" forecolor="#000000" uuid="0ba38039-b095-4d32-88c2-d1cbe0c2d978"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tên Sản Phẩm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="471" y="0" width="90" height="18" forecolor="#000000" uuid="e2ada55a-a09a-4a91-ac5c-f1c51c970eee"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Số Lượng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="561" y="0" width="109" height="18" forecolor="#000000" uuid="3e2a11da-7c45-457f-8010-ed44800cf235"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Đơn Vị]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="670" y="0" width="117" height="18" forecolor="#000000" uuid="58f28a34-2d22-4e63-9894-616b7f1b095c"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Gía]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="2" width="802" height="18" uuid="b3106815-1541-4733-a162-b485ca4fbe86"/>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="97" height="18" uuid="37cde5c8-b1e4-488d-aa14-f468e20f67b4"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MaSP}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="97" y="0" width="104" height="18" uuid="d2cac9df-430f-4571-8d4d-090ebf7d086d"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{loaiSP_MaLoaiSP}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="201" y="0" width="124" height="18" uuid="4e530b32-c79c-486b-83ec-85eb18d16201"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nhaCungCap_MaNCC}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="325" y="0" width="146" height="18" uuid="be226e5d-b247-4a54-b2d1-803f3f4725ad"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TenSP}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="471" y="0" width="90" height="18" uuid="a9566270-5ea8-49f2-a840-aa29cba1719d"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SoLuong}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="561" y="0" width="109" height="18" uuid="9d797ad1-7bd5-47fa-a283-2db268828f38"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DonVi}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight">
+					<reportElement style="Detail" positionType="Float" x="670" y="0" width="117" height="18" uuid="06fed1a5-d9f7-49e5-96c1-3eabb88e1313"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Gia}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="4ffd5453-9405-494f-b4c6-baf47409c308"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="d0de23f5-86f1-42f5-b3d4-e4e975539078"/>
+				<staticText>
+					<reportElement x="0" y="5" width="648" height="20" forecolor="#FFFFFF" uuid="ce5bb864-fac7-4c98-a3cf-4cd611fe8cab"/>
+					<text><![CDATA[12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh: 0368197963; Email: acemart@gmail.com.vn]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="686" y="5" width="76" height="20" forecolor="#FFFFFF" uuid="0494224b-ec48-4b64-a529-edddf342fc53"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA["Trang "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="762" y="5" width="40" height="20" forecolor="#FFFFFF" uuid="ce8b7bb9-5c87-46d1-b6ce-9001f1792fd6"/>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

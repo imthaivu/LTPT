@@ -1,0 +1,5 @@
+ 
+//myrmi.policy
+grant {
+  Permission java.security.AllPermission;
+}; 
