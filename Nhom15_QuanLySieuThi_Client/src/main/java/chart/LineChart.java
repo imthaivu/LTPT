@@ -15,18 +15,12 @@ import org.jfree.ui.ApplicationFrame;
 // Vẽ biểu đồ thống kê
 public class LineChart extends ApplicationFrame {
 
-    /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+    	private static final long serialVersionUID = 1L;
 	String[] thoiGian;
     int[] soHoaDon;
     long[] doanhThu;
 
-    /**
-     * @contructor LineChart
-     */
-    public LineChart(String[] thoiGian, int[] soHoaDon, long[] doanhThu) {
+        public LineChart(String[] thoiGian, int[] soHoaDon, long[] doanhThu) {
         super("Biểu Đồ Thống Kê");
         this.thoiGian = thoiGian;
         this.soHoaDon = soHoaDon;

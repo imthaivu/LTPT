@@ -15,253 +15,211 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 
-
-/**
- *
- * @author Knight Black
- */
-
 //Entity NhanVien
 @Entity
 @Table(name = "NhanVien")
-public class NhanVien implements Serializable{
-	/**
-	 *
-	 */
-	public static final long serialVersionUID = 1L;
-	/**
-	 *
-	 */
-	@Id
-	@Column(name = "MaNv")
+public class NhanVien implements Serializable {
+    public static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "MaNv")
     private String maNV;
-	@ManyToOne
+    @ManyToOne
     private ChucVu chucVu;
-	@Column(name = "HoTen", columnDefinition = "nvarchar(200)")
+    @Column(name = "HoTen", columnDefinition = "nvarchar(200)")
     private String hoTen;
-	@Column(name = "NgaySinh")
+    @Column(name = "NgaySinh")
     private Date ngaySinh;
-	@Column(name = "SoDT")
+    @Column(name = "SoDT")
     private String soDT;
-	@Column(name = "GioiTinh")
+    @Column(name = "GioiTinh")
     private boolean gioiTinh;
-	@Column(name = "CaLamViec")
+    @Column(name = "CaLamViec")
     private String caLamViec;
-	@Column(name = "Luong")
+    @Column(name = "Luong")
     private double luong;
-	@Column(name = "TrangThai")
+    @Column(name = "TrangThai")
     private String trangThai;
-    
+
     @OneToMany(mappedBy = "nhanVien")
     private List<TaiKhoan> taiKhoan;
     @OneToMany(mappedBy = "nhanVien")
     private List<HoaDon> hoaDon;
-    
-    
-    
-	public NhanVien() {
-		super();
-	}
 
-	
 
-	public NhanVien(String maNV, ChucVu chucVu, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh,
-			String caLamViec, double luong, String trangThai, List<TaiKhoan> taiKhoan, List<HoaDon> hoaDon) {
-		super();
-		this.maNV = maNV;
-		this.chucVu = chucVu;
-		this.hoTen = hoTen;
-		this.ngaySinh = ngaySinh;
-		this.soDT = soDT;
-		this.gioiTinh = gioiTinh;
-		this.caLamViec = caLamViec;
-		this.luong = luong;
-		this.trangThai = trangThai;
-		this.taiKhoan = taiKhoan;
-		this.hoaDon = hoaDon;
-	}
+    public NhanVien() {
+        super();
+    }
+
+
+    public NhanVien(String maNV, ChucVu chucVu, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh,
+                    String caLamViec, double luong, String trangThai, List<TaiKhoan> taiKhoan, List<HoaDon> hoaDon) {
+        super();
+        this.maNV = maNV;
+        this.chucVu = chucVu;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.soDT = soDT;
+        this.gioiTinh = gioiTinh;
+        this.caLamViec = caLamViec;
+        this.luong = luong;
+        this.trangThai = trangThai;
+        this.taiKhoan = taiKhoan;
+        this.hoaDon = hoaDon;
+    }
 
-	
 
+    public NhanVien(String maNV, ChucVu chucVu, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh,
+                    String caLamViec, double luong, String trangThai) {
+        super();
+        this.maNV = maNV;
+        this.chucVu = chucVu;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.soDT = soDT;
+        this.gioiTinh = gioiTinh;
+        this.caLamViec = caLamViec;
+        this.luong = luong;
+        this.trangThai = trangThai;
+    }
 
-	public NhanVien(String maNV, ChucVu chucVu, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh,
-			String caLamViec, double luong, String trangThai) {
-		super();
-		this.maNV = maNV;
-		this.chucVu = chucVu;
-		this.hoTen = hoTen;
-		this.ngaySinh = ngaySinh;
-		this.soDT = soDT;
-		this.gioiTinh = gioiTinh;
-		this.caLamViec = caLamViec;
-		this.luong = luong;
-		this.trangThai = trangThai;
-	}
 
+    public NhanVien(String maNV, ChucVu chucVu, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh,
+                    String caLamViec, double luong, String trangThai, List<HoaDon> hoaDon) {
+        super();
+        this.maNV = maNV;
+        this.chucVu = chucVu;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.soDT = soDT;
+        this.gioiTinh = gioiTinh;
+        this.caLamViec = caLamViec;
+        this.luong = luong;
+        this.trangThai = trangThai;
+    }
 
 
-	public NhanVien(String maNV, ChucVu chucVu, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh,
-			String caLamViec, double luong, String trangThai, List<HoaDon> hoaDon) {
-		super();
-		this.maNV = maNV;
-		this.chucVu = chucVu;
-		this.hoTen = hoTen;
-		this.ngaySinh = ngaySinh;
-		this.soDT = soDT;
-		this.gioiTinh = gioiTinh;
-		this.caLamViec = caLamViec;
-		this.luong = luong;
-		this.trangThai = trangThai;
-	}
+    public NhanVien(String maNV, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh, String caLamViec,
+                    double luong, String trangThai) {
+        super();
+        this.maNV = maNV;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.soDT = soDT;
+        this.gioiTinh = gioiTinh;
+        this.caLamViec = caLamViec;
+        this.luong = luong;
+        this.trangThai = trangThai;
+    }
 
 
+    public String getMaNV() {
+        return maNV;
+    }
 
-	public NhanVien(String maNV, String hoTen, Date ngaySinh, String soDT, boolean gioiTinh, String caLamViec,
-			double luong, String trangThai) {
-		super();
-		this.maNV = maNV;
-		this.hoTen = hoTen;
-		this.ngaySinh = ngaySinh;
-		this.soDT = soDT;
-		this.gioiTinh = gioiTinh;
-		this.caLamViec = caLamViec;
-		this.luong = luong;
-		this.trangThai = trangThai;
-	}
 
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
 
 
-	public String getMaNV() {
-		return maNV;
-	}
+    public ChucVu getChucVu() {
+        return chucVu;
+    }
 
 
+    public void setChucVu(ChucVu chucVu) {
+        this.chucVu = chucVu;
+    }
 
-	public void setMaNV(String maNV) {
-		this.maNV = maNV;
-	}
 
+    public String getHoTen() {
+        return hoTen;
+    }
 
 
-	public ChucVu getChucVu() {
-		return chucVu;
-	}
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
+    }
 
 
+    public Date getNgaySinh() {
+        return ngaySinh;
+    }
 
-	public void setChucVu(ChucVu chucVu) {
-		this.chucVu = chucVu;
-	}
 
+    public void setNgaySinh(Date ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
 
 
-	public String getHoTen() {
-		return hoTen;
-	}
+    public String getSoDT() {
+        return soDT;
+    }
 
 
+    public void setSoDT(String soDT) {
+        this.soDT = soDT;
+    }
 
-	public void setHoTen(String hoTen) {
-		this.hoTen = hoTen;
-	}
 
+    public boolean isGioiTinh() {
+        return gioiTinh;
+    }
 
 
-	public Date getNgaySinh() {
-		return ngaySinh;
-	}
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
 
 
+    public String getCaLamViec() {
+        return caLamViec;
+    }
 
-	public void setNgaySinh(Date ngaySinh) {
-		this.ngaySinh = ngaySinh;
-	}
 
+    public void setCaLamViec(String caLamViec) {
+        this.caLamViec = caLamViec;
+    }
 
 
-	public String getSoDT() {
-		return soDT;
-	}
+    public double getLuong() {
+        return luong;
+    }
 
 
+    public void setLuong(double luong) {
+        this.luong = luong;
+    }
 
-	public void setSoDT(String soDT) {
-		this.soDT = soDT;
-	}
 
+    public String getTrangThai() {
+        return trangThai;
+    }
 
 
-	public boolean isGioiTinh() {
-		return gioiTinh;
-	}
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
 
 
+    public List<TaiKhoan> getTaiKhoan() {
+        return taiKhoan;
+    }
 
-	public void setGioiTinh(boolean gioiTinh) {
-		this.gioiTinh = gioiTinh;
-	}
 
+    public void setTaiKhoan(List<TaiKhoan> taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
 
 
-	public String getCaLamViec() {
-		return caLamViec;
-	}
+    public List<HoaDon> getHoaDon() {
+        return hoaDon;
+    }
 
 
+    public void setHoaDon(List<HoaDon> hoaDon) {
+        this.hoaDon = hoaDon;
+    }
 
-	public void setCaLamViec(String caLamViec) {
-		this.caLamViec = caLamViec;
-	}
 
-
-
-	public double getLuong() {
-		return luong;
-	}
-
-
-
-	public void setLuong(double luong) {
-		this.luong = luong;
-	}
-
-
-
-	public String getTrangThai() {
-		return trangThai;
-	}
-
-
-
-	public void setTrangThai(String trangThai) {
-		this.trangThai = trangThai;
-	}
-
-
-
-	public List<TaiKhoan> getTaiKhoan() {
-		return taiKhoan;
-	}
-
-
-
-	public void setTaiKhoan(List<TaiKhoan> taiKhoan) {
-		this.taiKhoan = taiKhoan;
-	}
-
-
-
-	public List<HoaDon> getHoaDon() {
-		return hoaDon;
-	}
-
-
-
-	public void setHoaDon(List<HoaDon> hoaDon) {
-		this.hoaDon = hoaDon;
-	}
-    
-    
-
-    
 }

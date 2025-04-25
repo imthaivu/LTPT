@@ -15,211 +15,192 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 
-
-/**
- *
- * @author Knight Black
- */
-
 //Entity SanPham
 @Entity
 @Table(name = "SanPham")
-public class SanPham implements Serializable{
-	/**
-	 *
-	 */
-	public static final long serialVersionUID = 1L;
-	@Id
-	@Column(name = "MaSP")
+public class SanPham implements Serializable {
+    public static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "MaSP")
     private String maSP;
-	@ManyToOne
+    @ManyToOne
     private LoaiSP loaiSP;
-	@ManyToOne
+    @ManyToOne
     private NCC nhaCungCap;
-	@Column(name = "TenSP", columnDefinition = "nvarchar(200)")
+    @Column(name = "TenSP", columnDefinition = "nvarchar(200)")
     private String tenSP;
-	@Column(name = "SoLuong")
+    @Column(name = "SoLuong")
     private int soLuong;
-	@Column(name = "DonVi")
+    @Column(name = "DonVi")
     private String donVi;
-	@Column(name = "Gia")
+    @Column(name = "Gia")
     private double gia;
-	@Column(name = "Anh")
+    @Column(name = "Anh")
     private String anh;
-    
+
     @OneToMany(mappedBy = "sanPham")
     private List<CT_HoaDon> ctHoaDons;
-  
-    
-	public SanPham() {
-	}
 
 
-	public SanPham(String maSP, LoaiSP loaiSP, NCC nhaCungCap, String tenSP, int soLuong, String donVi, double gia,
-			String anh, List<CT_HoaDon> ctHoaDons) {
-		super();
-		this.maSP = maSP;
-		this.loaiSP = loaiSP;
-		this.nhaCungCap = nhaCungCap;
-		this.tenSP = tenSP;
-		this.soLuong = soLuong;
-		this.donVi = donVi;
-		this.gia = gia;
-		this.anh = anh;
-		this.ctHoaDons = ctHoaDons;
-	}
-	
-	
+    public SanPham() {
+    }
 
 
-	public SanPham(String maSP, LoaiSP loaiSP, NCC nhaCungCap, String tenSP, int soLuong, String donVi, double gia,
-			String anh) {
-		super();
-		this.maSP = maSP;
-		this.loaiSP = loaiSP;
-		this.nhaCungCap = nhaCungCap;
-		this.tenSP = tenSP;
-		this.soLuong = soLuong;
-		this.donVi = donVi;
-		this.gia = gia;
-		this.anh = anh;
-	}
-	
-	
+    public SanPham(String maSP, LoaiSP loaiSP, NCC nhaCungCap, String tenSP, int soLuong, String donVi, double gia,
+                   String anh, List<CT_HoaDon> ctHoaDons) {
+        super();
+        this.maSP = maSP;
+        this.loaiSP = loaiSP;
+        this.nhaCungCap = nhaCungCap;
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.donVi = donVi;
+        this.gia = gia;
+        this.anh = anh;
+        this.ctHoaDons = ctHoaDons;
+    }
 
 
-
-	public SanPham(String maSP) {
-		super();
-		this.maSP = maSP;
-	}
-
-
-	public String getMaSP() {
-		return maSP;
-	}
-
-
-	public void setMaSP(String maSP) {
-		this.maSP = maSP;
-	}
+    public SanPham(String maSP, LoaiSP loaiSP, NCC nhaCungCap, String tenSP, int soLuong, String donVi, double gia,
+                   String anh) {
+        super();
+        this.maSP = maSP;
+        this.loaiSP = loaiSP;
+        this.nhaCungCap = nhaCungCap;
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.donVi = donVi;
+        this.gia = gia;
+        this.anh = anh;
+    }
 
 
-	public LoaiSP getLoaiSP() {
-		return loaiSP;
-	}
+    public SanPham(String maSP) {
+        super();
+        this.maSP = maSP;
+    }
 
 
-	public void setLoaiSP(LoaiSP loaiSP) {
-		this.loaiSP = loaiSP;
-	}
+    public String getMaSP() {
+        return maSP;
+    }
 
 
-	public NCC getNhaCungCap() {
-		return nhaCungCap;
-	}
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
+    }
 
 
-	public void setNhaCungCap(NCC nhaCungCap) {
-		this.nhaCungCap = nhaCungCap;
-	}
+    public LoaiSP getLoaiSP() {
+        return loaiSP;
+    }
 
 
-	public String getTenSP() {
-		return tenSP;
-	}
+    public void setLoaiSP(LoaiSP loaiSP) {
+        this.loaiSP = loaiSP;
+    }
 
 
-	public void setTenSP(String tenSP) {
-		this.tenSP = tenSP;
-	}
+    public NCC getNhaCungCap() {
+        return nhaCungCap;
+    }
 
 
-	public int getSoLuong() {
-		return soLuong;
-	}
+    public void setNhaCungCap(NCC nhaCungCap) {
+        this.nhaCungCap = nhaCungCap;
+    }
 
 
-	public void setSoLuong(int soLuong) {
-		this.soLuong = soLuong;
-	}
+    public String getTenSP() {
+        return tenSP;
+    }
 
 
-	public String getDonVi() {
-		return donVi;
-	}
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
+    }
 
 
-	public void setDonVi(String donVi) {
-		this.donVi = donVi;
-	}
+    public int getSoLuong() {
+        return soLuong;
+    }
 
 
-	public double getGia() {
-		return gia;
-	}
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
 
 
-	public void setGia(double gia) {
-		this.gia = gia;
-	}
+    public String getDonVi() {
+        return donVi;
+    }
 
 
-	public String getAnh() {
-		return anh;
-	}
+    public void setDonVi(String donVi) {
+        this.donVi = donVi;
+    }
 
 
-	public void setAnh(String anh) {
-		this.anh = anh;
-	}
+    public double getGia() {
+        return gia;
+    }
 
 
-	public List<CT_HoaDon> getCtHoaDons() {
-		return ctHoaDons;
-	}
+    public void setGia(double gia) {
+        this.gia = gia;
+    }
 
 
-	public void setCtHoaDons(List<CT_HoaDon> ctHoaDons) {
-		this.ctHoaDons = ctHoaDons;
-	}
+    public String getAnh() {
+        return anh;
+    }
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public void setAnh(String anh) {
+        this.anh = anh;
+    }
 
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(maSP);
-	}
+    public List<CT_HoaDon> getCtHoaDons() {
+        return ctHoaDons;
+    }
 
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SanPham other = (SanPham) obj;
-		return Objects.equals(maSP, other.maSP);
-	}
+    public void setCtHoaDons(List<CT_HoaDon> ctHoaDons) {
+        this.ctHoaDons = ctHoaDons;
+    }
 
 
-	@Override
-	public String toString() {
-		return "SanPham [maSP=" + maSP + ", loaiSP=" + loaiSP + ", nhaCungCap=" + nhaCungCap + ", tenSP=" + tenSP
-				+ ", soLuong=" + soLuong + ", donVi=" + donVi + ", gia=" + gia + ", anh=" + anh + ", ctHoaDons="
-				+ ctHoaDons + "]";
-	}
-	
-	
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
 
-	
+    @Override
+    public int hashCode() {
+        return Objects.hash(maSP);
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SanPham other = (SanPham) obj;
+        return Objects.equals(maSP, other.maSP);
+    }
+
+
+    @Override
+    public String toString() {
+        return "SanPham [maSP=" + maSP + ", loaiSP=" + loaiSP + ", nhaCungCap=" + nhaCungCap + ", tenSP=" + tenSP
+                + ", soLuong=" + soLuong + ", donVi=" + donVi + ", gia=" + gia + ", anh=" + anh + ", ctHoaDons="
+                + ctHoaDons + "]";
+    }
 
 
 }

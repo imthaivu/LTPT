@@ -15,19 +15,22 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
+
 import entity.TaiKhoan;
 import iRemote.ITaiKhoan;
 import view.util.FrameUtil;
 import view.util.RMIUrl;
+
 //Frame homeQuanLi
-public class HomeQuanLi extends javax.swing.JFrame implements Runnable{
+public class HomeQuanLi extends javax.swing.JFrame implements Runnable {
 
     private Thread thread;
     public Process processed;
-	private ITaiKhoan taiKhoanDao;
-	private FrameUtil frameUtil = new FrameUtil();
-	private TaiKhoan account;
-	private String rmiUrl = new RMIUrl().RMIUrl();
+    private ITaiKhoan taiKhoanDao;
+    private FrameUtil frameUtil = new FrameUtil();
+    private TaiKhoan account;
+    private String rmiUrl = new RMIUrl().RMIUrl();
+
     //private TaiKhoan account;
     public HomeQuanLi(TaiKhoan tk) {
         initComponents();
@@ -37,48 +40,50 @@ public class HomeQuanLi extends javax.swing.JFrame implements Runnable{
         lblSoftwareName.setForeground(Color.GREEN);
         lblRun.setForeground(Color.GREEN);
         try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://"+ rmiUrl +":3030/iTaiKhoan");
-			account = tk;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":3030/iTaiKhoan");
+            account = tk;
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         //processed = new Controller.Process(); // Gọi đến đối tượng Process liên kết với csdl
         lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());
         Start();
     }
 
-    
+
     // Lấy thời gian
-    private void Start(){
-        if(thread==null){
-            thread= new Thread(this);
+    private void Start() {
+        if (thread == null) {
+            thread = new Thread(this);
             thread.start();
         }
     }
-    
+
     // Giao diện thông tin shop chạy
-    
-    private void Update(){
+
+    private void Update() {
         lblRun.setForeground(Color.GREEN);
-        lblRun.setLocation(lblRun.getX()-1, lblRun.getY());
-        if(lblRun.getX()+lblRun.getWidth()<0){
+        lblRun.setLocation(lblRun.getX() - 1, lblRun.getY());
+        if (lblRun.getX() + lblRun.getWidth() < 0) {
             lblRun.setLocation(this.getWidth(), lblRun.getY());
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel(){
+        jPanel1 = new javax.swing.JPanel() {
             ImageIcon icon = new ImageIcon(getClass().getResource("/IconImage/Background2.png"));
-            public void paintComponent(Graphics g){
+
+            public void paintComponent(Graphics g) {
 
                 Dimension d = getSize();
                 g.drawImage(icon.getImage(), 0, 0, d.width, d.height, this);
@@ -142,11 +147,11 @@ public class HomeQuanLi extends javax.swing.JFrame implements Runnable{
         revenuesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-					revenuesBtnActionPerformed(evt);
-				} catch (MalformedURLException | RemoteException | NotBoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                    revenuesBtnActionPerformed(evt);
+                } catch (MalformedURLException | RemoteException | NotBoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -190,112 +195,112 @@ public class HomeQuanLi extends javax.swing.JFrame implements Runnable{
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblSoftwareName, javax.swing.GroupLayout.PREFERRED_SIZE, 1296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(updateEmpoyeesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(updateAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(76, 76, 76)
-                                .addComponent(revenuesBtn)
-                                .addGap(73, 73, 73)
-                                .addComponent(signOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45))))))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblRun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblSoftwareName, javax.swing.GroupLayout.PREFERRED_SIZE, 1296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(52, 52, 52)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(jLabel1)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(lblNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addComponent(updateEmpoyeesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(63, 63, 63)
+                                                                .addComponent(updateAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(76, 76, 76)
+                                                                .addComponent(revenuesBtn)
+                                                                .addGap(73, 73, 73)
+                                                                .addComponent(signOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(45, 45, 45))))))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblSoftwareName)
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                    .addComponent(lblNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(updateEmpoyeesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(updateAccountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                    .addComponent(revenuesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(signOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(119, 119, 119)
-                .addComponent(lblRun)
-                .addGap(21, 21, 21))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblSoftwareName)
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                                        .addComponent(lblNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(updateEmpoyeesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(updateAccountBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                        .addComponent(revenuesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(signOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(119, 119, 119)
+                                .addComponent(lblRun)
+                                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-       frameUtil.exit(this);
-    }//GEN-LAST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
+        frameUtil.exit(this);
+    }
 
-    private void updateEmpoyeesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEmpoyeesBtnActionPerformed
-        EmployeesFrame employees=new EmployeesFrame(account);
+    private void updateEmpoyeesBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        EmployeesFrame employees = new EmployeesFrame(account);
         this.setVisible(false);
         employees.setVisible(true);
-    }//GEN-LAST:event_updateEmpoyeesBtnActionPerformed
+    }
 
-    private void updateAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateAccountBtnActionPerformed
+    private void updateAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {
         Accounts accounts = new Accounts(account);
         this.setVisible(false);
         accounts.setVisible(true);
-    }//GEN-LAST:event_updateAccountBtnActionPerformed
+    }
 
-    private void revenuesBtnActionPerformed(java.awt.event.ActionEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_revenuesBtnActionPerformed
+    private void revenuesBtnActionPerformed(java.awt.event.ActionEvent evt) throws MalformedURLException, RemoteException, NotBoundException {
         Revenues revenue = new Revenues(account);
         this.setVisible(false);
         revenue.setVisible(true);
-    }//GEN-LAST:event_revenuesBtnActionPerformed
+    }
 
-    private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutBtnActionPerformed
-        UIManager.put("OptionPane.messageFont", new FontUIResource(new Font(  
-          "Arial", Font.BOLD, 18))); 
+    private void signOutBtnActionPerformed(java.awt.event.ActionEvent evt) {
+        UIManager.put("OptionPane.messageFont", new FontUIResource(new Font(
+                "Arial", Font.BOLD, 18)));
         UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 16));
-        int Click = JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất khỏi tài khoản hay không?", "Thông Báo",2); //thông báo khi bấm nút đăng xuất
-        if(Click ==JOptionPane.YES_OPTION){
+        int Click = JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất khỏi tài khoản hay không?", "Thông Báo", 2); //thông báo khi bấm nút đăng xuất
+        if (Click == JOptionPane.YES_OPTION) {
             Login login = new Login();
             this.setVisible(false);
             login.setVisible(true);
         }
-    }//GEN-LAST:event_signOutBtnActionPerformed
+    }
 
-    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {
         frameUtil.exit(this);
-    }//GEN-LAST:event_exitBtnActionPerformed
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -340,26 +345,26 @@ public class HomeQuanLi extends javax.swing.JFrame implements Runnable{
 
     @Override
     public void run() {
-        long FPS=80;
-        long period=1000*1000000/FPS;
-        long beginTime,sleepTime;
-        
-        beginTime=System.nanoTime();
-        while(true){
-            
+        long FPS = 80;
+        long period = 1000 * 1000000 / FPS;
+        long beginTime, sleepTime;
+
+        beginTime = System.nanoTime();
+        while (true) {
+
             Update();
-            
-            long deltaTime=System.nanoTime()-beginTime;
-            sleepTime=period-deltaTime;
-            try{
-                if(sleepTime>0)
-                    Thread.sleep(sleepTime/1000000);
-                else    Thread.sleep(period/2000000);
-                
-            }catch(Exception ex){
+
+            long deltaTime = System.nanoTime() - beginTime;
+            sleepTime = period - deltaTime;
+            try {
+                if (sleepTime > 0)
+                    Thread.sleep(sleepTime / 1000000);
+                else Thread.sleep(period / 2000000);
+
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            beginTime=System.nanoTime();
+            beginTime = System.nanoTime();
         }
     }
 }

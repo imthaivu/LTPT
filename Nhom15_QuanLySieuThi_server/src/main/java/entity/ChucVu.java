@@ -19,10 +19,7 @@ import net.bytebuddy.implementation.bind.annotation.Default;
 @Entity
 @Table(name = "ChucVu")
 public class ChucVu implements Serializable{
-	/**
-	 *
-	 */
-	public static final long serialVersionUID = 1L;
+		public static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "MaCV")
     private String maCV;
@@ -38,11 +35,7 @@ public class ChucVu implements Serializable{
 		super();
 	}
 
-	/**
-    * @contructor
-    * @param maCV, tenCV, luong
-    */
-    public ChucVu(String maCV, String tenCV, double luong) {
+	    public ChucVu(String maCV, String tenCV, double luong) {
         this.maCV = maCV;
         this.tenCV = tenCV;
         this.luong = luong;
@@ -53,45 +46,27 @@ public class ChucVu implements Serializable{
     	 this.maCV = maCV;
 	}
 
-	/**
-     * return maCV
-    */
-    public String getMaCV() {
+	    public String getMaCV() {
         return maCV;
     }
 
-    /**
-    * @param maCV
-    */
-    public void setMaCV(String maCV) {
+        public void setMaCV(String maCV) {
         this.maCV = maCV;
     }
 
-    /**
-     * return tenCV
-    */
-    public String getTenCV() {
+        public String getTenCV() {
         return tenCV;
     }
 
-    /**
-    * @param tenCV
-    */
-    public void setTenCV(String tenCV) {
+        public void setTenCV(String tenCV) {
         this.tenCV = tenCV;
     }
 
-    /**
-     * return String luong
-    */
-    public double getLuong() {
+        public double getLuong() {
         return luong;
     }
 
-    /**
-    * @param luong
-    */
-    public void setLuong(double luong) {
+        public void setLuong(double luong) {
         this.luong = luong;
     }
     

@@ -9,10 +9,7 @@ import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 
 public class HeaderRenderer extends JLabel implements TableCellRenderer {
-	/**
-	* 
-	*/
-	private static final long serialVersionUID = 5631983250359122123L;
+		private static final long serialVersionUID = 5631983250359122123L;
 	private Color fgColor = UIManager.getColor("TableHeader.foreground");
 	private Color bgColor = UIManager.getColor("TableHeader.background");
 
