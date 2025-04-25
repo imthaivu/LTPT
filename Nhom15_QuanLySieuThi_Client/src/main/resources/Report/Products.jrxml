@@ -41,7 +41,7 @@
 					<textElement verticalAlignment="Bottom">
 						<font size="48" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Siêu thị ACE MART]]></text>
+					<text><![CDATA[Siêu thị IUH MART]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="SubTitle" x="486" y="20" width="316" height="46" uuid="eb792e7c-f44d-4f52-8756-52bd8a0a5bd2"/>

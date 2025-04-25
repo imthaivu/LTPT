@@ -106,7 +106,7 @@ public class HomeQuanLi extends javax.swing.JFrame implements Runnable{
 
         lblSoftwareName.setFont(new java.awt.Font("Times New Roman", 0, 46)); // NOI18N
         lblSoftwareName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSoftwareName.setText("Phần Mềm Quản Lý Siêu Thị  ACE MART");
+        lblSoftwareName.setText("Phần Mềm Quản Lý Siêu Thị  IUH MART");
 
         updateEmpoyeesBtn.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         updateEmpoyeesBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconImage/Account.png"))); // NOI18N

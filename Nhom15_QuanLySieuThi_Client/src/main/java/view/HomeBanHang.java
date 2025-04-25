@@ -111,7 +111,7 @@ public class HomeBanHang extends javax.swing.JFrame implements Runnable{
 
         lblSoftwareName.setFont(new java.awt.Font("Times New Roman", 0, 45)); // NOI18N
         lblSoftwareName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSoftwareName.setText("Phần Mềm Quản Lý Siêu Thị ACE MART");
+        lblSoftwareName.setText("Phần Mềm Quản Lý Siêu Thị IUH MART");
 
         banHangBtn.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         banHangBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconImage/Sale.png"))); // NOI18N

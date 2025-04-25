@@ -64,7 +64,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Siêu thị ACE MART]]></text>
+				<text><![CDATA[Siêu thị IUH MART]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="31" width="244" height="11" uuid="f526301f-4437-4ddd-b69e-df79e882f3a1"/>
