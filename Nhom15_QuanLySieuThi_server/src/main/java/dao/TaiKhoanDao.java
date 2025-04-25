@@ -1,17 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
-import org.hibernate.Query;
+import entity.TaiKhoan;
+import hibernateCfg.HibernateConfig;
+import iRemote.ITaiKhoan;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.TaiKhoan;
-import hibernateCfg.HibernateConfig;
-import iRemote.ITaiKhoan;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class TaiKhoanDao extends UnicastRemoteObject implements ITaiKhoan{
 

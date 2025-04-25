@@ -1,19 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
+import entity.SanPham;
+import hibernateCfg.HibernateConfig;
+import iRemote.ISanPham;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.KhachHang;
-import entity.LoaiSP;
-import entity.SanPham;
-import entity.TaiKhoan;
-import hibernateCfg.HibernateConfig;
-import iRemote.ISanPham;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class SanPhamDao extends UnicastRemoteObject implements ISanPham{
 

@@ -1,17 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
+import entity.NCC;
+import hibernateCfg.HibernateConfig;
+import iRemote.INCC;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.NCC;
-import entity.TaiKhoan;
-import hibernateCfg.HibernateConfig;
-import iRemote.INCC;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class NCCDao extends UnicastRemoteObject implements INCC{
 

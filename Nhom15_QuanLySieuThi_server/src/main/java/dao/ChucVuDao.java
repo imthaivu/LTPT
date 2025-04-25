@@ -1,17 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
+import entity.ChucVu;
+import hibernateCfg.HibernateConfig;
+import iRemote.IChucVu;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.ChucVu;
-import entity.KhachHang;
-import hibernateCfg.HibernateConfig;
-import iRemote.IChucVu;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class ChucVuDao extends UnicastRemoteObject implements IChucVu{
 

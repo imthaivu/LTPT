@@ -1,17 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
+import entity.KhachHang;
+import hibernateCfg.HibernateConfig;
+import iRemote.IKhachHang;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.KhachHang;
-import entity.TaiKhoan;
-import hibernateCfg.HibernateConfig;
-import iRemote.IKhachHang;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class KhachHangDao extends UnicastRemoteObject implements IKhachHang{
 

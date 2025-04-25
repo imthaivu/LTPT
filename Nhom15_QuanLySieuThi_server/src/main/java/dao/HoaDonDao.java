@@ -1,18 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
-
+import entity.HoaDon;
+import hibernateCfg.HibernateConfig;
+import iRemote.IHoaDon;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.HoaDon;
-import entity.SanPham;
-import hibernateCfg.HibernateConfig;
-import iRemote.IHoaDon;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class HoaDonDao extends UnicastRemoteObject implements IHoaDon{
 

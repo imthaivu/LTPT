@@ -1,18 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
+import entity.LoaiSP;
+import hibernateCfg.HibernateConfig;
+import iRemote.ILoaiSP;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.LoaiSP;
-import entity.NCC;
-import entity.TaiKhoan;
-import hibernateCfg.HibernateConfig;
-import iRemote.ILoaiSP;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class LoaiSPDao extends UnicastRemoteObject implements ILoaiSP{
 

@@ -1,17 +1,15 @@
 package dao;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
+import entity.NhanVien;
+import hibernateCfg.HibernateConfig;
+import iRemote.INhanVien;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import entity.KhachHang;
-import entity.NhanVien;
-import hibernateCfg.HibernateConfig;
-import iRemote.INhanVien;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class NhanVienDao extends UnicastRemoteObject implements INhanVien{
 
