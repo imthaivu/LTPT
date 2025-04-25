@@ -59,6 +59,14 @@
 			<version>1.6.4</version>
 		</dependency>
 
+		<!-- Local server JAR dependency -->
+		<dependency>
+			<groupId>Nhom15_QuanLySieuThi_Server</groupId>
+			<artifactId>Nhom15_QuanLySieuThi_Server</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/Nhom15_QuanLySieuThi_Server-1.0.jar</systemPath>
+		</dependency>
 
 	</dependencies>
 	<build>

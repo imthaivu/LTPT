@@ -37,7 +37,7 @@ public class HomeQuanLi extends javax.swing.JFrame implements Runnable{
         lblSoftwareName.setForeground(Color.GREEN);
         lblRun.setForeground(Color.GREEN);
         try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://"+ rmiUrl +":2910/iTaiKhoan");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://"+ rmiUrl +":3030/iTaiKhoan");
 			account = tk;
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

@@ -32,7 +32,7 @@ public class ChangePassWord extends javax.swing.JFrame {
         lblStatus.setForeground(Color.red);
         Disbled(); // Tắt đi những ô input chưa cần thiết
         
-        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan"); // Gọi đến đối tượng Process kết nối với csdl
+        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan"); // Gọi đến đối tượng Process kết nối với csdl
         loadComboBox(); // Load những tài khoản có trong csdl
         
     }

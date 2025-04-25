@@ -90,13 +90,13 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 
 		// Gọi đến đối tượng Process liên kết với csdl
 		try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":2910/iTaiKhoan");
-			loaiSPDao = (ILoaiSP) Naming.lookup("rmi://" + rmiUrl + ":2910/iLoaiSP");
-			sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl + ":2910/iSanPham");
-			ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl + ":2910/iCTHoaDon");
-			hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":2910/iHoaDon");
-			khachHangDao = (IKhachHang) Naming.lookup("rmi://" + rmiUrl + ":2910/iKhachHang");
-			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":2910/iNhanVien");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":3030/iTaiKhoan");
+			loaiSPDao = (ILoaiSP) Naming.lookup("rmi://" + rmiUrl + ":3030/iLoaiSP");
+			sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl + ":3030/iSanPham");
+			ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl + ":3030/iCTHoaDon");
+			hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":3030/iHoaDon");
+			khachHangDao = (IKhachHang) Naming.lookup("rmi://" + rmiUrl + ":3030/iKhachHang");
+			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":3030/iNhanVien");
 			account = tk;
 			lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());
 			tableListOrder.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));

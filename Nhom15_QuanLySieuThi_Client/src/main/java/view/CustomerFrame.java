@@ -49,8 +49,8 @@ public class CustomerFrame extends javax.swing.JFrame {
         lblStatus.setForeground(Color.red);
         
         try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan");
-			khachHangDao = (IKhachHang) Naming.lookup("rmi://"+ rmiUrl +":2910/iKhachHang");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan");
+			khachHangDao = (IKhachHang) Naming.lookup("rmi://"+ rmiUrl +":3030/iKhachHang");
 			account = tk;
 			lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());
 			loadOrderCustomerTable();

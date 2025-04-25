@@ -60,10 +60,10 @@ public class Revenues extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan");
-        sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl +":2910/iSanPham");
-		ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl +":2910/iCTHoaDon");
-		hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":2910/iHoaDon");
+        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan");
+        sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl +":3030/iSanPham");
+		ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl +":3030/iCTHoaDon");
+		hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":3030/iHoaDon");
         tk = Ac; // gọi đến Entity tài khoản lấy thông tin tài khoản, đăng nhập và thoát Frame phù hợp
         loadDate(); //load ngày thống kê mặc định
         lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());

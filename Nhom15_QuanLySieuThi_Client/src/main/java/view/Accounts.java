@@ -47,8 +47,8 @@ public class Accounts extends javax.swing.JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":2910/iTaiKhoan");
-			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":2910/iNhanVien");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":3030/iTaiKhoan");
+			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":3030/iNhanVien");
 			account = Ac; // gọi đến Entity tài khoản lấy thông tin tài khoản, đăng nhập và thoát Frame
 							// phù hợp
 			lblNhanVien.setText("(" + account.getNhanVien().getMaNV() + ") " + account.getNhanVien().getHoTen());

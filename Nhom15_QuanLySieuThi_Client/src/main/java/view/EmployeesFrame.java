@@ -58,9 +58,9 @@ public class EmployeesFrame extends javax.swing.JFrame {
 		lblPosition.setForeground(Color.red);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan");
-			chucVuDao = (IChucVu) Naming.lookup("rmi://" + rmiUrl + ":2910/iChucVu");
-			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":2910/iNhanVien");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan");
+			chucVuDao = (IChucVu) Naming.lookup("rmi://" + rmiUrl + ":3030/iChucVu");
+			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":3030/iNhanVien");
 			account = Ac;// Gọi đến đối tượng Process liên kết với csdl
 			btnEmployeeOff.setEnabled(true);
 			lblNhanVien.setText("(" + account.getNhanVien().getMaNV() + ") " + account.getNhanVien().getHoTen());
