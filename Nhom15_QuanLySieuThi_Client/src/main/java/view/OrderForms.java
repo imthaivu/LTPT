@@ -1,6 +1,5 @@
 package view;
 
-import javax.naming.Context;
 import javax.swing.JFrame;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -54,7 +53,7 @@ import iRemote.ISanPham;
 import iRemote.ITaiKhoan;
 
 import java.awt.Frame;
-import java.util.Collections;
+import java.io.File;
 
 //Frame Cập nhật hóa đơn
 public class OrderForms extends javax.swing.JFrame implements Runnable {
@@ -91,13 +90,13 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 
 		// Gọi đến đối tượng Process liên kết với csdl
 		try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":3030/iTaiKhoan");
-			loaiSPDao = (ILoaiSP) Naming.lookup("rmi://" + rmiUrl + ":3030/iLoaiSP");
-			sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl + ":3030/iSanPham");
-			ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl + ":3030/iCTHoaDon");
-			hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":3030/iHoaDon");
-			khachHangDao = (IKhachHang) Naming.lookup("rmi://" + rmiUrl + ":3030/iKhachHang");
-			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":3030/iNhanVien");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":2910/iTaiKhoan");
+			loaiSPDao = (ILoaiSP) Naming.lookup("rmi://" + rmiUrl + ":2910/iLoaiSP");
+			sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl + ":2910/iSanPham");
+			ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl + ":2910/iCTHoaDon");
+			hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":2910/iHoaDon");
+			khachHangDao = (IKhachHang) Naming.lookup("rmi://" + rmiUrl + ":2910/iKhachHang");
+			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":2910/iNhanVien");
 			account = tk;
 			lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());
 			tableListOrder.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
@@ -178,8 +177,8 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 	private void loadProducts() throws RemoteException {
 		cbxProduct.removeAllItems();
 		String[] test = cbxClassify.getSelectedItem().toString().split("\\s");
-		List<SanPham> arry = sanPhamDao.findSPTheoLoai(test[0]);
-
+		String sql = "SELECT * FROM SANPHAM WHERE loaiSP_MaLoaiSP = '" + test[0] + "'";
+		List<SanPham> arry = sanPhamDao.findSP(sql);
 
 		for (int i = 0; i < arry.size(); i++) {
 			cbxProduct.addItem(((SanPham) arry.get(i)).getMaSP() + " (" + ((SanPham) arry.get(i)).getTenSP() + ")");
@@ -214,8 +213,10 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 	private void Pays() throws RemoteException {
 		lblTongTien.setText("0 VNĐ");
 		HoaDon hoaDon = hoaDonDao.getHD(cbxMaHD.getSelectedItem().toString());
-		List<CT_HoaDon> ctHD = ctHDDao.getCTHDByMaHD(hoaDon.getMaHD());
-		double tongTien = hoaDon.getThanhTien(ctHD);
+		String sql = "SELECT * FROM CT_HOADON WHERE MAHD = '" + hoaDon.getMaHD() + "'";
+		double tongTien = 0;
+		List<CT_HoaDon> ctHD = ctHDDao.findCTHD(sql);
+		tongTien = hoaDon.getThanhTien(ctHD);
 		lblTongTien.setText(numberFormat.format(tongTien));
 	}
 
@@ -245,18 +246,10 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 
 	// Hàm kiểm tra số lượng sản phẩm
 	private void checkSLSP() throws RemoteException {
-		String maSP = cbxProduct.getSelectedItem().toString().split("\\s")[0];
-		System.out.println(maSP);
-		product = sanPhamDao.getSP(maSP);
-
-		if (product.getSoLuong() == 0) {
-			lblStatus.setText("Sản phẩm này đã hết hàng!!");
-			btnSave.setEnabled(false);
-			txbAmount.setEnabled(false);
-		} else {
-			lblStatus.setText("Mặt hàng này còn " + product.getSoLuong() + " sản phẩm!!");
-			btnSave.setEnabled(true);
-			txbAmount.setEnabled(true);
+		if (cbxProduct.getSelectedItem() != null) {
+			String maSP = cbxProduct.getSelectedItem().toString().split("\\s")[0];
+			product = sanPhamDao.getSP(maSP);
+			// Không có xử lý thêm sau khi lấy sản phẩm
 		}
 	}
 
@@ -272,7 +265,8 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 			}
 		};
 		System.out.println(cbxMaHD.getSelectedItem().toString());
-		List<CT_HoaDon> arry = ctHDDao.getCTHoaDon(cbxMaHD.getSelectedItem().toString());
+		String sql = "SELECT * FROM CT_HOADON WHERE maHD = '" + cbxMaHD.getSelectedItem().toString() + "'";
+		List<CT_HoaDon> arry = ctHDDao.findCTHD(sql);
 		for (CT_HoaDon i : arry) {
 			Vector vector = new Vector();
 			SanPham sanPham = sanPhamDao.getSP(i.getSanPham().getMaSP());
@@ -282,10 +276,11 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 			vector.add(sanPham.getTenSP());
 			vector.add(i.getSoLuong());
 			vector.add(numberFormat.format(i.getThanhTien()));
-			modle.addRow(vector);
+			 modle.addRow(vector);
 		}
 
 		tblOrderDetail.setModel(modle);
+
 	}
 
 	// load thông tin hóa đơn ra bảng
@@ -307,7 +302,8 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 			vector.add(i.getKhachHang().getMaKH());
 			vector.add(i.getKhachHang().getTenKH());
 			vector.add(new SimpleDateFormat("dd/MM/yyyy").format(i.getNgayBan()));
-			List<CT_HoaDon> ctHD = ctHDDao.getCTHDByMaHD(i.getMaHD());
+			String sql = "SELECT * FROM CT_HOADON WHERE MAHD = '" + i.getMaHD() + "'";
+			List<CT_HoaDon> ctHD = ctHDDao.findCTHD(sql);
 			vector.add(numberFormat.format(i.getThanhTien(ctHD)));
 			modle.addRow(vector);
 		}
@@ -355,16 +351,10 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 	// Tắt các ô input nhập liệu hóa đơn
 	private void Disabled() {
 		cbxClassify.setEnabled(false);
-		txbEmployeeID.setEnabled(false);
-		cbxMaKH.setEnabled(false);
-		cbxTenKH.setEnabled(false);
-		txbAddress.setEnabled(false);
-		txbPhone.setEnabled(false);
 		cbxProduct.setEnabled(false);
 		txbAmount.setEnabled(false);
 		txbPrice.setEnabled(false);
 		txbIntoMoney.setEnabled(false);
-		txbDate.setEnabled(false);
 		cbxClassify.removeAllItems();
 		cbxProduct.removeAllItems();
 	}
@@ -470,15 +460,21 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 
 	// Tự động load thông tin khách hàng khi chọn tên khách hàng từ combobox
 	private void automatedNameCustomer() throws RemoteException {
-		String tenKH = cbxTenKH.getSelectedItem().toString();
-		if (tenKH != null && !tenKH.isEmpty()) {
-			KhachHang kh = khachHangDao.findKH(tenKH);
-			if (kh != null) {
-				cbxMaKH.setSelectedItem(kh.getMaKH());
-				txbAddress.setText(kh.getDiaChi());
-				txbPhone.setText(kh.getSoDT());
+		String[] chuoi = cbxTenKH.getSelectedItem().toString().split("\\s");
+		String tenKh = "";
+		for (int i = 0; i < chuoi.length - 1; i++) {
+			if (i == 0) {
+				tenKh = chuoi[0];
+			} else {
+				tenKh += " " + chuoi[i];
 			}
+
 		}
+		String sql = "Select * from KhachHang where TenKH = N'" + tenKh +"'";
+		KhachHang customer = khachHangDao.findKH(sql).get(0);
+		cbxMaKH.setSelectedItem(customer.getMaKH());
+		txbAddress.setText(customer.getDiaChi());
+		txbPhone.setText(customer.getSoDT());
 	}
 
 	// Lưu thông tin Nhân viên vào ô thông tin nhân viên trên Frame
@@ -2010,30 +2006,74 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 		// checkDH();
 	}// GEN-LAST:event_btnSaveActionPerformed
 
-	private void btnXuatDonHangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnXuatDonHangActionPerformed
+	private void btnXuatDonHangActionPerformed(java.awt.event.ActionEvent evt) {
+    UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Arial", Font.BOLD, 18)));
+    UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 16));
+    int Click = JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất hóa đơn hay không?", "Thông Báo", 2);
 
-		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Arial", Font.BOLD, 18)));
-		UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 16));
-		int Click = JOptionPane.showConfirmDialog(null, "Bạn có muốn xuất hóa đơn hay không?", "Thông Báo", 2);
+    if (Click == JOptionPane.YES_OPTION) {
+        try {
+            // Debug: In ra thông tin để kiểm tra
+            System.out.println("Current directory: " + System.getProperty("user.dir"));
+            
+            // Tạo parameters
+            HashMap<String, Object> param = new HashMap<>();
+            param.put("MaHD", cbxMaHD.getSelectedItem().toString());
+            param.put("TongTien", lblTongTien.getText());
+            
+            // Lấy kết nối database
+            Connection connectJsaper = new ConnectJsaper().getConnection();
+            if (connectJsaper == null) {
+                JOptionPane.showMessageDialog(this, "Không thể kết nối database", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-		if (Click == JOptionPane.YES_OPTION) {
-			try {
-				HashMap param = new HashMap();
-				param.put("MaHD", cbxMaHD.getSelectedItem().toString());
-				param.put("TongTien", lblTongTien.getText().toString());
-				List<CT_HoaDon> ctHD = ctHDDao.getCTHDForReport(cbxMaHD.getSelectedItem().toString());
-				HoaDon hoaDon = hoaDonDao.getHD(cbxMaHD.getSelectedItem().toString());
-				
-				Connection connectJsaper = new ConnectJsaper().getConnection();
-				String url =  getClass().getResource("/Report/HoaDon.jrxml").toString().split("file:/")[1];
-				JasperReport report = JasperCompileManager.compileReport(url);
-				JasperPrint print = JasperFillManager.fillReport(report, param, connectJsaper);
-				JasperViewer.viewReport(print, false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}// GEN-LAST:event_btnXuatDonHangActionPerformed
+            // Tìm file report
+            String reportPath = null;
+            
+            // Thử tìm trong classpath
+            java.net.URL reportUrl = getClass().getClassLoader().getResource("Report/HoaDon.jrxml");
+            if (reportUrl != null) {
+                reportPath = reportUrl.getPath();
+                System.out.println("Found report at: " + reportPath);
+            }
+            
+            // Thử tìm trong thư mục resources
+            if (reportPath == null) {
+                File resourceFile = new File("src/main/resources/Report/HoaDon.jrxml");
+                if (resourceFile.exists()) {
+                    reportPath = resourceFile.getAbsolutePath();
+                    System.out.println("Found report at: " + reportPath);
+                }
+            }
+
+            if (reportPath == null) {
+                JOptionPane.showMessageDialog(this,
+                    "Không tìm thấy file mẫu báo cáo (HoaDon.jrxml)\n" +
+                    "Vui lòng kiểm tra file tồn tại trong thư mục Report",
+                    "Lỗi",
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Compile và fill report
+            JasperReport report = JasperCompileManager.compileReport(reportPath);
+            JasperPrint print = JasperFillManager.fillReport(report, param, connectJsaper);
+
+            // Hiển thị report
+            JasperViewer.viewReport(print, false);
+
+        } catch (Exception e) {
+            System.err.println("Error details:");
+            e.printStackTrace();
+            
+            JOptionPane.showMessageDialog(this,
+                "Lỗi khi tạo báo cáo: " + e.getMessage(),
+                "Lỗi",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
 
 	private void btnAddActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {// GEN-FIRST:event_btnAddActionPerformed
 		AddSP = true;
@@ -2097,17 +2137,16 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 		}
 	}// GEN-LAST:event_cbxClassifyPopupMenuWillBecomeInvisible
 
-	private void txbAmountKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_txbAmountKeyReleased
+	private void txbAmountKeyReleased(java.awt.event.KeyEvent evt) {
 		DecimalFormat formatter = new DecimalFormat("###,###,###");
 		txbAmount.setText(cutChar(txbAmount.getText()));
 		if (txbAmount.getText().equals("")) {
 			String[] s = txbPrice.getText().split("\\s");
 			txbIntoMoney.setText("0" + " " + s[1]);
-		} else {
+		} else if (product != null) { // Thêm kiểm tra null
 			int soluong = Integer.parseInt(txbAmount.getText());
 			txbPrice.setText(numberFormat.format(product.getGia()));
 			double thanhTien = product.getGia() * soluong;
-
 			txbIntoMoney.setText(numberFormat.format(thanhTien));
 		}
 	}// GEN-LAST:event_txbAmountKeyReleased
@@ -2151,7 +2190,6 @@ public class OrderForms extends javax.swing.JFrame implements Runnable {
 	}// GEN-LAST:event_tableListOrderMouseClicked
 
 	private void thanhToanBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_thanhToanBtnActionPerformed
-		// TODO add your handling code here:
 		thanhToan = true;
 		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Arial", Font.BOLD, 18)));
 		UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 16));

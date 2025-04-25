@@ -34,8 +34,7 @@ public class CT_HoaDonDao extends UnicastRemoteObject implements ICT_HoaDon{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM CT_HoaDon";
-			List<CT_HoaDon> listKH = session.createQuery(hql, CT_HoaDon.class).getResultList();
+			List<CT_HoaDon> listKH = session.createNativeQuery("SELECT * FROM CT_HOADON", CT_HoaDon.class).getResultList();
 			tr.commit();
 			return listKH;
 		} catch (Exception e) {
@@ -53,12 +52,28 @@ public class CT_HoaDonDao extends UnicastRemoteObject implements ICT_HoaDon{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM CT_HoaDon cthd WHERE cthd.hoaDon.maHD = :maHD";
-			CT_HoaDon ct_HoaDon = session.createQuery(hql, CT_HoaDon.class)
-				.setParameter("maHD", maHD)
-				.getSingleResult();
+			CT_HoaDon ct_HoaDon = session.createNativeQuery("SELECT * FROM CT_HoaDon WHERE MaHD = '" + maHD + "'", CT_HoaDon.class).getSingleResult();
 			tr.commit();
 			return ct_HoaDon;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tr.rollback();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+	
+
+	@Override
+	public List<CT_HoaDon> findCTHD(String sql) throws RemoteException {
+		Session session = sessionFactory.openSession();
+		Transaction tr = session.getTransaction();
+		try {
+			tr.begin();
+			List<CT_HoaDon> listCTHD = session.createNativeQuery(sql, CT_HoaDon.class).getResultList();
+			tr.commit();
+			return listCTHD;
 		} catch (Exception e) {
 			e.printStackTrace();
 			tr.rollback();
@@ -106,33 +121,18 @@ public class CT_HoaDonDao extends UnicastRemoteObject implements ICT_HoaDon{
 
 	@Override
 	public boolean deleteCTHD(String maCTHD) throws RemoteException {
-		Session session = sessionFactory.openSession();
-		Transaction tr = session.getTransaction();
-		try {
-			tr.begin();
-			session.delete(session.find(CT_HoaDon.class, maCTHD));
-			tr.commit();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		} finally {
-			session.close();
-		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void deleteSPHoaDon(String maHD, String maSP) throws RemoteException {
+		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "DELETE FROM CT_HoaDon cthd WHERE cthd.hoaDon.maHD = :maHD AND cthd.sanPham.maSP = :maSP";
-			session.createQuery(hql)
-				.setParameter("maHD", maHD)
-				.setParameter("maSP", maSP)
-				.executeUpdate();
+			session.createNativeQuery("DELETE FROM CT_HoaDon WHERE MaHD = '" + maHD + "' AND MaSP = '" + maSP + "'", CT_HoaDon.class);
 			tr.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -148,11 +148,7 @@ public class CT_HoaDonDao extends UnicastRemoteObject implements ICT_HoaDon{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM CT_HoaDon cthd WHERE cthd.hoaDon.maHD = :maHD AND cthd.sanPham.maSP = :maSP";
-			CT_HoaDon ctHD = session.createQuery(hql, CT_HoaDon.class)
-				.setParameter("maHD", maHD)
-				.setParameter("maSP", maSP)
-				.getSingleResult();
+			CT_HoaDon ctHD = session.createNativeQuery("SELECT * FROM CT_HOADON WHERE MaHD= '" + maHD + "'" +  "AND MaSP= '" + maSP + "'", CT_HoaDon.class).getSingleResult();
 			tr.commit();
 			return ctHD != null;
 		} catch (Exception e) {
@@ -162,69 +158,6 @@ public class CT_HoaDonDao extends UnicastRemoteObject implements ICT_HoaDon{
 			session.close();
 		}
 		return false;
-	}
-
-	@Override
-	public List<CT_HoaDon> getCTHDByMaHD(String maHD) throws RemoteException {
-		Session session = sessionFactory.openSession();
-		Transaction tr = session.getTransaction();
-		try {
-			tr.begin();
-			String hql = "FROM CT_HoaDon WHERE hoaDon.maHD = :maHD";
-			List<CT_HoaDon> listCTHD = session.createQuery(hql, CT_HoaDon.class)
-					.setParameter("maHD", maHD)
-					.getResultList();
-			tr.commit();
-			return listCTHD;
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		} finally {
-			session.close();
-		}
-		return null;
-	}
-
-	@Override
-	public List<CT_HoaDon> getCTHDForReport(String maHD) throws RemoteException {
-		Session session = sessionFactory.openSession();
-		Transaction tr = session.getTransaction();
-		try {
-			tr.begin();
-			String hql = "FROM CT_HoaDon cthd WHERE cthd.hoaDon.maHD = :maHD";
-			List<CT_HoaDon> listCTHD = session.createQuery(hql, CT_HoaDon.class)
-				.setParameter("maHD", maHD)
-				.getResultList();
-			tr.commit();
-			return listCTHD;
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		} finally {
-			session.close();
-		}
-		return null;
-	}
-
-	@Override
-	public List<CT_HoaDon> findCTHDByMaHD(String maHD) throws RemoteException {
-		Session session = sessionFactory.openSession();
-		Transaction tr = session.getTransaction();
-		try {
-			tr.begin();
-			String hql = "FROM CT_HoaDon WHERE hoaDon.maHD = :maHD";
-			List<CT_HoaDon> listCTHD = session.createQuery(hql, CT_HoaDon.class)
-					.setParameter("maHD", maHD)
-					.getResultList();
-			tr.commit();
-			return listCTHD;
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		} finally {
-			session.close();
-		}
-		return null;
 	}
 
 	/**

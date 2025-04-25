@@ -11,7 +11,6 @@ public interface ISanPham extends Remote{
 	public List<SanPham> getAllSanPham() throws RemoteException;
 	public SanPham getSP(String maSP) throws RemoteException;
 	public List<SanPham> findSP(String sql) throws RemoteException;
-	public List<SanPham> findSPTheoLoai(String loai) throws RemoteException;
 	public boolean addSanPham(SanPham sanPham) throws RemoteException;
 	public boolean updateSanPham(SanPham sanPham) throws RemoteException;
 	boolean deleteSanPham(String maSanPham) throws RemoteException;

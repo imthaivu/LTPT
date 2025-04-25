@@ -74,11 +74,11 @@ public class Products extends javax.swing.JFrame {
 		lblStatus2.setForeground(Color.red);
 		tblProduct.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
 		try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan");
-			nccDao = (INCC) Naming.lookup("rmi://" + rmiUrl +":3030/iNCC");
-			loaiSPDao = (ILoaiSP) Naming.lookup("rmi://" + rmiUrl +":3030/iLoaiSP");
-			sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl +":3030/iSanPham");
-			ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl +":3030/iCTHoaDon");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan");
+			nccDao = (INCC) Naming.lookup("rmi://" + rmiUrl +":2910/iNCC");
+			loaiSPDao = (ILoaiSP) Naming.lookup("rmi://" + rmiUrl +":2910/iLoaiSP");
+			sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl +":2910/iSanPham");
+			ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl +":2910/iCTHoaDon");
 			account = tk;
 			lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());
 			lblNhanVien1.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());

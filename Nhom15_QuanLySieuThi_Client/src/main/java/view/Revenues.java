@@ -3,6 +3,7 @@ package view;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -17,8 +18,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import chart.LineChart;
@@ -60,10 +60,10 @@ public class Revenues extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan");
-        sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl +":3030/iSanPham");
-		ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl +":3030/iCTHoaDon");
-		hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":3030/iHoaDon");
+        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan");
+        sanPhamDao = (ISanPham) Naming.lookup("rmi://" + rmiUrl +":2910/iSanPham");
+		ctHDDao = (ICT_HoaDon) Naming.lookup("rmi://" + rmiUrl +":2910/iCTHoaDon");
+		hoaDonDao = (IHoaDon) Naming.lookup("rmi://" + rmiUrl + ":2910/iHoaDon");
         tk = Ac; // gọi đến Entity tài khoản lấy thông tin tài khoản, đăng nhập và thoát Frame phù hợp
         loadDate(); //load ngày thống kê mặc định
         lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());
@@ -93,28 +93,36 @@ public class Revenues extends javax.swing.JFrame {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+            
         };
         
         List<SanPham> sp = sanPhamDao.getAllSanPham();
+      
         List<HoaDon> arry = hoaDonDao.getAllHD();
-        for (HoaDon hoaDon : arry) {
-            List<CT_HoaDon> CTHD = ctHDDao.findCTHDByMaHD(hoaDon.getMaHD());
+        for (int i = 0; i < arry.size(); i++) {
+
+            String sql = "SELECT * FROM CT_HOADON WHERE MaHD = '" + ((HoaDon) arry.get(i)).getMaHD() + "'";
+           List<CT_HoaDon> CTHD = ctHDDao.findCTHD(sql);
             
             Vector vector = new Vector();
-            vector.add(hoaDon.getMaHD());
-            vector.add(hoaDon.getNhanVien().getMaNV() + " (" + hoaDon.getNhanVien().getHoTen() + ")");
-            vector.add(hoaDon.getKhachHang().getMaKH() + " (" + hoaDon.getKhachHang().getTenKH() + ")");
-            vector.add(new SimpleDateFormat("dd/MM/yyyy").format(hoaDon.getNgayBan()));
-            vector.add(formatter.format(hoaDon.getThanhTien(CTHD)) + " VNĐ");
+            vector.add(((HoaDon) arry.get(i)).getMaHD());
+            vector.add(((HoaDon) arry.get(i)).getNhanVien().getMaNV() + " (" + ((HoaDon) arry.get(i)).getNhanVien().getHoTen() + ")");
+            vector.add(((HoaDon) arry.get(i)).getKhachHang().getMaKH() + " (" + ((HoaDon) arry.get(i)).getKhachHang().getTenKH() + ")");
+            vector.add(new SimpleDateFormat("dd/MM/yyyy").format(((HoaDon) arry.get(i)).getNgayBan()));
+            vector.add(formatter.format(((HoaDon) arry.get(i)).getThanhTien(CTHD)) + " VNĐ");
+
 
             modle.addRow(vector);
-            double thanhTien = hoaDon.getThanhTien(CTHD);
+            double thanhTien = ((HoaDon) arry.get(i)).getThanhTien(CTHD);
+
             tongTien = (long) (thanhTien + tongTien);
             count++;
         }
         tblRevenue.setModel(modle);
         lblSoHoaDon.setText(String.valueOf(count));
+        
         lblTongDoanhThu.setText(formatter.format(tongTien) + " " + "VNĐ");
+
     }
 
     //load bảng thống kê khi bấm nút thống kê
@@ -130,25 +138,28 @@ public class Revenues extends javax.swing.JFrame {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };
-        
-        List<SanPham> sp = sanPhamDao.getAllSanPham();
-        Date date1 = new java.sql.Date(jDateChooser1.getDate().getTime());
-        Date date2 = new java.sql.Date(jDateChooser2.getDate().getTime());
-        List<HoaDon> arry = hoaDonDao.findHDByDateRange(date1, date2);
-        
-        for (HoaDon hoaDon : arry) {
-            List<CT_HoaDon> CTHD = ctHDDao.findCTHDByMaHD(hoaDon.getMaHD());
             
+        };
+         List<SanPham> sp;
+            sp = sanPhamDao.getAllSanPham();
+            Date date1 = new java.sql.Date(jDateChooser1.getDate().getTime());
+            Date date2 = new java.sql.Date(jDateChooser2.getDate().getTime());
+            String sql = "SELECT * FROM HOADON WHERE NgayBan BETWEEN '" + date1 + "' AND '" + date2 + "'";
+        List<HoaDon> arry = hoaDonDao.findHD(sql);
+        for (int i = 0; i < arry.size(); i++) {
+        	  String sql1 = "SELECT * FROM CT_HOADON WHERE MaHD = '" + ((HoaDon) arry.get(i)).getMaHD() + "'";
+              List<CT_HoaDon> CTHD = ctHDDao.findCTHD(sql1);
             Vector vector = new Vector();
-            vector.add(hoaDon.getMaHD());
-            vector.add(hoaDon.getNhanVien().getMaNV() + " (" + hoaDon.getNhanVien().getHoTen() + ")");
-            vector.add(hoaDon.getKhachHang().getMaKH() + " (" + hoaDon.getKhachHang().getTenKH() + ")");
-            vector.add(new SimpleDateFormat("dd/MM/yyyy").format(hoaDon.getNgayBan()));
-            vector.add(formatter.format(hoaDon.getThanhTien(CTHD)) + " VNĐ");
+            vector.add(((HoaDon) arry.get(i)).getMaHD());
+            vector.add(((HoaDon) arry.get(i)).getNhanVien().getMaNV() + " (" + ((HoaDon) arry.get(i)).getNhanVien().getHoTen() + ")");
+            vector.add(((HoaDon) arry.get(i)).getKhachHang().getMaKH() + " (" + ((HoaDon) arry.get(i)).getKhachHang().getTenKH() + ")");
+            vector.add(new SimpleDateFormat("dd/MM/yyyy").format(((HoaDon) arry.get(i)).getNgayBan()));
+            vector.add(formatter.format(((HoaDon) arry.get(i)).getThanhTien(CTHD)) + " VNĐ");
+
 
             modle.addRow(vector);
-            double thanhTien = hoaDon.getThanhTien(CTHD);
+            double thanhTien = ((HoaDon) arry.get(i)).getThanhTien(CTHD);
+
             tongTien = (long) (thanhTien + tongTien);
             count++;
         }
@@ -169,10 +180,12 @@ public class Revenues extends javax.swing.JFrame {
     }
     
     // Biểu đồ
-    private void bieuDo() throws RemoteException {
-        Date date1 = new java.sql.Date(jDateChooser1.getDate().getTime());
-        Date date2 = new java.sql.Date(jDateChooser2.getDate().getTime());
-        List<HoaDon> arry = hoaDonDao.findHDByDateRange(date1, date2);
+    private void bieuDo() throws RemoteException{
+        
+    	 Date date1 = new java.sql.Date(jDateChooser1.getDate().getTime());
+         Date date2 = new java.sql.Date(jDateChooser2.getDate().getTime());
+         String sql = "SELECT * FROM HOADON WHERE NgayBan BETWEEN '" + date1 + "' AND '" + date2 + "'";
+         List<HoaDon> arry = hoaDonDao.findHD(sql);
         int count = 0;
 
         String[] thoiGianKT = new String[arry.size()];
@@ -180,15 +193,18 @@ public class Revenues extends javax.swing.JFrame {
         long[] doanhThu = new long[arry.size()];
 
         int j = 0;
-        List<SanPham> sp = sanPhamDao.getAllSanPham();
+        List<SanPham> sp;
+        sp = sanPhamDao.getAllSanPham();
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        
-        for (HoaDon hoaDon : arry) {
-            List<CT_HoaDon> CTHD = ctHDDao.findCTHDByMaHD(hoaDon.getMaHD());
-            String[] chuoi = hoaDon.getNgayBan().toString().split("-");
-            long doanhso = (long) hoaDon.getThanhTien(CTHD);
+        for (int i = 0; i < arry.size(); i++) {
 
-            if (j == 0) {
+             String sql1 = "SELECT * FROM CT_HOADON WHERE MaHD = '" + ((HoaDon) arry.get(i)).getMaHD() + "'";
+             List<CT_HoaDon> CTHD = ctHDDao.findCTHD(sql1);
+            String[] chuoi = ((HoaDon) arry.get(i)).getNgayBan().toString().split("-");
+
+            long doanhso = (long) ((HoaDon) arry.get(i)).getThanhTien(CTHD);
+
+            if (i == 0) {
                 thoiGianKT[j] = chuoi[1] + "/" + chuoi[0];
                 soHoaDonKT[j] = 1;
                 doanhThu[j] = doanhso;
@@ -197,18 +213,23 @@ public class Revenues extends javax.swing.JFrame {
             } else {
                 String[] ktra = thoiGianKT[j - 1].replace("/", " ").split("\\s");
 
+
                 if (chuoi[1].equals(ktra[0]) && chuoi[0].equals(ktra[1])) {
                     soHoaDonKT[j - 1] = soHoaDonKT[j - 1] + 1;
                     doanhThu[j - 1] = doanhThu[j - 1] + doanhso;
                 } else {
-                    thoiGianKT[j] = chuoi[1] + "/" + chuoi[0];
+                    thoiGianKT[j] =  chuoi[1] + "/" + chuoi[0];
                     soHoaDonKT[j] = 1;
                     doanhThu[j] = doanhso;
                     j++;
                     count = count + 1;
                 }
+
             }
         }
+
+        int k = 0;
+
 
         //Gọi đến LineChart Entity
         LineChart lineChart = new LineChart(thoiGianKT, soHoaDonKT, doanhThu);
@@ -235,6 +256,7 @@ public class Revenues extends javax.swing.JFrame {
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
         jframe.setVisible(true);
+
     }
     
     
@@ -497,32 +519,72 @@ public class Revenues extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBackHomeActionPerformed
 
-    private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {//GEN-FIRST:event_btnThongKeActionPerformed
-        try {
-            loadRevenue();
-            HashMap param = new HashMap();
-            SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
-            String date1 = dcn.format(jDateChooser1.getDate());
-            String date2 = dcn.format(jDateChooser2.getDate());
-            param.put("TuNgay", date1);
-            param.put("DenNgay", date2);
-            param.put("TongHD", lblSoHoaDon.getText());
-            param.put("TongDoanhThu", lblTongDoanhThu.getText());
-            
-            Connection connectJsaper = new ConnectJsaper().getConnection();
-            String url =  getClass().getResource("/Report/Revenues.jrxml").toString().split("file:/")[1];
-            JasperReport report = JasperCompileManager.compileReport(url);
-            JasperPrint print = JasperFillManager.fillReport(report, param, connectJsaper);
-
-            JasperViewer.viewReport(print, false);
-             
-        } catch (JRException ex) {
-            Logger.getLogger(Revenues.class.getName()).log(Level.SEVERE, null, ex);
-            
+    private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {
+    try {
+        loadRevenue();
+        
+        // Tạo parameters
+        HashMap<String, Object> param = new HashMap<>();
+        SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
+        String date1 = dcn.format(jDateChooser1.getDate());
+        String date2 = dcn.format(jDateChooser2.getDate());
+        param.put("TuNgay", date1);
+        param.put("DenNgay", date2);
+        param.put("TongHD", lblSoHoaDon.getText());
+        param.put("TongDoanhThu", lblTongDoanhThu.getText());
+        
+        // Lấy kết nối database
+        Connection connectJsaper = new ConnectJsaper().getConnection();
+        if (connectJsaper == null) {
+            JOptionPane.showMessageDialog(this, "Không thể kết nối database", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-            
-           
-    }//GEN-LAST:event_btnThongKeActionPerformed
+
+        // Tìm file report
+        String reportPath = null;
+        
+        // Thử tìm trong classpath
+        java.net.URL reportUrl = getClass().getClassLoader().getResource("Report/Revenues.jrxml");
+        if (reportUrl != null) {
+            reportPath = reportUrl.getPath();
+            System.out.println("Found report at: " + reportPath);
+        }
+        
+        // Thử tìm trong thư mục resources
+        if (reportPath == null) {
+            File resourceFile = new File("src/main/resources/Report/Revenues.jrxml");
+            if (resourceFile.exists()) {
+                reportPath = resourceFile.getAbsolutePath();
+                System.out.println("Found report at: " + reportPath);
+            }
+        }
+
+        if (reportPath == null) {
+            JOptionPane.showMessageDialog(this,
+                "Không tìm thấy file mẫu báo cáo (Revenues.jrxml)\n" +
+                "Vui lòng kiểm tra file tồn tại trong thư mục Report",
+                "Lỗi",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Compile và fill report
+        JasperReport report = JasperCompileManager.compileReport(reportPath);
+        JasperPrint print = JasperFillManager.fillReport(report, param, connectJsaper);
+
+        // Hiển thị report
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        System.err.println("Error details:");
+        e.printStackTrace();
+        
+        JOptionPane.showMessageDialog(this,
+            "Lỗi khi tạo báo cáo: " + e.getMessage(),
+            "Lỗi",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

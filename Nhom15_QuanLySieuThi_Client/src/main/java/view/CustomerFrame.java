@@ -49,8 +49,8 @@ public class CustomerFrame extends javax.swing.JFrame {
         lblStatus.setForeground(Color.red);
         
         try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan");
-			khachHangDao = (IKhachHang) Naming.lookup("rmi://"+ rmiUrl +":3030/iKhachHang");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan");
+			khachHangDao = (IKhachHang) Naming.lookup("rmi://"+ rmiUrl +":2910/iKhachHang");
 			account = tk;
 			lblNhanVien.setText("(" + tk.getNhanVien().getMaNV() + ") " + tk.getNhanVien().getHoTen());
 			loadOrderCustomerTable();
@@ -157,27 +157,27 @@ public class CustomerFrame extends javax.swing.JFrame {
     }
     
     //Load thông tin khách hàng cần tìm ra bảng
-    private void findCustomerTable() {
-        String searchType = cbxFind.getSelectedItem().toString();
-        String searchValue = txtFind.getText();
-        
-        try {
-            List<KhachHang> listKH = khachHangDao.findKH2(searchType, searchValue);
-            DefaultTableModel model = (DefaultTableModel) tblCustomer.getModel();
-            model.setRowCount(0);
-            
-            for (KhachHang kh : listKH) {
-                model.addRow(new Object[] {
-                    kh.getMaKH(),
-                    kh.getTenKH(),
-                    kh.getDiaChi(),
-                    kh.getSoDT()
-                });
+    private void findCustomerTable(List<KhachHang> arry) {
+        tblCustomerSearch.removeAll();
+        tblCustomerSearch.getTableHeader().setFont( new Font( "Arial" , Font.BOLD, 16 ));
+        String[] arr = {"Mã Khách Hàng", "Tên Khách Hàng","Địa Chỉ", "Số Điện Thoại"};
+        DefaultTableModel modle = new DefaultTableModel(arr, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi kết nối server");
+            
+        };
+
+        for (int i = 0; i < arry.size(); i++) {
+            Vector vector = new Vector();
+            vector.add(((KhachHang) arry.get(i)).getMaKH());
+            vector.add(((KhachHang) arry.get(i)).getTenKH());
+            vector.add(((KhachHang) arry.get(i)).getDiaChi());
+            vector.add(((KhachHang) arry.get(i)).getSoDT());
+            modle.addRow(vector);
         }
+        tblCustomerSearch.setModel(modle);
     }
     //Hàm tìm kiếm khách hàng
     private void FindCustomer(String sql) throws RemoteException {
@@ -456,7 +456,7 @@ public class CustomerFrame extends javax.swing.JFrame {
 
         lblNhanVien.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(255, 0, 51));
-        lblNhanVien.setText("(QL01) Mai Văn Trường");
+        lblNhanVien.setText("(QL01) vuthai2");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -608,7 +608,7 @@ public class CustomerFrame extends javax.swing.JFrame {
 
         lblNhanVien1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblNhanVien1.setForeground(new java.awt.Color(255, 0, 51));
-        lblNhanVien1.setText("(QL01) Mai Văn Trường");
+        lblNhanVien1.setText("(QL01) vuthai2");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setText("Tìm Kiếm Theo: ");

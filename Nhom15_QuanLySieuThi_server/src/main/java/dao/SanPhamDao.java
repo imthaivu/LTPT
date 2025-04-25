@@ -2,7 +2,6 @@ package dao;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -36,7 +35,7 @@ public class SanPhamDao extends UnicastRemoteObject implements ISanPham{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			List<SanPham> listSP = session.createQuery("FROM SanPham", SanPham.class).getResultList();
+			List<SanPham> listSP = session.createNativeQuery("SELECT * FROM SanPham", SanPham.class).getResultList();
 			tr.commit();
 			return listSP;
 		} catch (Exception e) {
@@ -126,9 +125,7 @@ public class SanPhamDao extends UnicastRemoteObject implements ISanPham{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			// Convert native SQL to HQL
-			String hql = "FROM SanPham WHERE " + sql;
-			List<SanPham> listSP = session.createQuery(hql, SanPham.class).getResultList();
+			List<SanPham> listSP = session.createNativeQuery(sql, SanPham.class).getResultList();
 			tr.commit();
 			return listSP;
 		} catch (Exception e) {
@@ -137,28 +134,6 @@ public class SanPhamDao extends UnicastRemoteObject implements ISanPham{
 		} finally {
 			session.close();
 		}
-		return null;
-	}
-
-	@Override
-	public List<SanPham> findSPTheoLoai(String loai) throws RemoteException {
-		String sql = "SELECT sp FROM SanPham sp WHERE SanPham.loaiSP.id = :maloai";
-		Session session = sessionFactory.openSession();
-		Transaction tr = session.getTransaction();
-		try {
-			tr.begin();
-			List<SanPham> listSP = session.createQuery(sql, SanPham.class)
-					.setParameter("maloai", loai)
-					.getResultList();
-			tr.commit();
-			return listSP;
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		} finally {
-			session.close();
-		}
-
 		return null;
 	}
 

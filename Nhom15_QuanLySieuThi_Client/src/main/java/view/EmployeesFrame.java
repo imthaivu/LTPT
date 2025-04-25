@@ -58,9 +58,9 @@ public class EmployeesFrame extends javax.swing.JFrame {
 		lblPosition.setForeground(Color.red);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan");
-			chucVuDao = (IChucVu) Naming.lookup("rmi://" + rmiUrl + ":3030/iChucVu");
-			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":3030/iNhanVien");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan");
+			chucVuDao = (IChucVu) Naming.lookup("rmi://" + rmiUrl + ":2910/iChucVu");
+			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":2910/iNhanVien");
 			account = Ac;// Gọi đến đối tượng Process liên kết với csdl
 			btnEmployeeOff.setEnabled(true);
 			lblNhanVien.setText("(" + account.getNhanVien().getMaNV() + ") " + account.getNhanVien().getHoTen());
@@ -751,7 +751,7 @@ public class EmployeesFrame extends javax.swing.JFrame {
 
         lblNhanVien.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(255, 0, 51));
-        lblNhanVien.setText("(QL02) Trần Bảo Dự");
+        lblNhanVien.setText("(QL02) vuthai1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -967,7 +967,7 @@ public class EmployeesFrame extends javax.swing.JFrame {
 
         lblNhanVien1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblNhanVien1.setForeground(new java.awt.Color(255, 0, 51));
-        lblNhanVien1.setText("(QL02) Trần Bảo Dự");
+        lblNhanVien1.setText("(QL02) vuthai1");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);

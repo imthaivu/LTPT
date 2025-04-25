@@ -47,8 +47,8 @@ public class Accounts extends javax.swing.JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":3030/iTaiKhoan");
-			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":3030/iNhanVien");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":2910/iTaiKhoan");
+			nhanVienDao = (INhanVien) Naming.lookup("rmi://" + rmiUrl + ":2910/iNhanVien");
 			account = Ac; // gọi đến Entity tài khoản lấy thông tin tài khoản, đăng nhập và thoát Frame
 							// phù hợp
 			lblNhanVien.setText("(" + account.getNhanVien().getMaNV() + ") " + account.getNhanVien().getHoTen());
@@ -140,8 +140,9 @@ public class Accounts extends javax.swing.JFrame {
 	// Lấy danh sách thông tin nhân viên đã có trong csdl
 	private void loadDSNhanVien() throws RemoteException {
 		List<NhanVien> arry = nhanVienDao.getAllNV();
-		for (NhanVien nv : arry) {
-			this.cbxEmployees.addItem(nv.getMaNV().trim() + " (" + nv.getHoTen().trim() + ")");
+		for (int i = 0; i < arry.size(); i++) {
+			this.cbxEmployees.addItem(((NhanVien) arry.get(i)).getMaNV().trim() + " ("
+					+ ((NhanVien) arry.get(i)).getHoTen().trim() + ")");
 		}
 	}
 
@@ -158,13 +159,14 @@ public class Accounts extends javax.swing.JFrame {
 		};
 
 		List<TaiKhoan> arry = taiKhoanDao.getAllTaiKhoan();
-		for (TaiKhoan tk : arry) {
+		for (int i = 0; i < arry.size(); i++) {
 			Vector vector = new Vector();
-			vector.add(tk.getMaTK());
-			vector.add(tk.getNhanVien().getMaNV() + " (" + tk.getNhanVien().getHoTen() + ")");
-			vector.add(tk.getTaiKhoan());
-			vector.add(tk.getMatKhau());
-			vector.add(tk.getVaiTro());
+			vector.add(((TaiKhoan) arry.get(i)).getMaTK());
+			vector.add(((TaiKhoan) arry.get(i)).getNhanVien().getMaNV() + " ("
+					+ ((TaiKhoan) arry.get(i)).getNhanVien().getHoTen() + ")");
+			vector.add(((TaiKhoan) arry.get(i)).getTaiKhoan());
+			vector.add(((TaiKhoan) arry.get(i)).getMatKhau());
+			vector.add((((TaiKhoan) arry.get(i)).getVaiTro()));
 			modle.addRow(vector);
 		}
 		tblAccount.setModel(modle);
@@ -470,7 +472,7 @@ public class Accounts extends javax.swing.JFrame {
 
         lblNhanVien.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(255, 0, 51));
-        lblNhanVien.setText("(QL01) Mai Văn Trường");
+        lblNhanVien.setText("(QL01) vuthai2");
 
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconImage/Refresh-icon.png"))); // NOI18N
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {

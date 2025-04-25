@@ -2,13 +2,11 @@ package dao;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import entity.KhachHang;
 import entity.TaiKhoan;
@@ -46,10 +44,6 @@ public class KhachHangDao extends UnicastRemoteObject implements IKhachHang{
 		return null;
 	}
 
-	@Override
-	public List<KhachHang> findKH(String sql) throws RemoteException {
-		return Collections.emptyList();
-	}
 
 
 	@Override
@@ -114,25 +108,12 @@ public class KhachHangDao extends UnicastRemoteObject implements IKhachHang{
 
 
 	@Override
-	public List<KhachHang> findKH2(String searchType, String searchValue) throws RemoteException {
+	public List<KhachHang> findKH(String sql) throws RemoteException {
 		Session session = sessionFactory.openSession();
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM KhachHang kh WHERE ";
-			if ("maKH".equals(searchType)) {
-				hql += "kh.maKH LIKE :searchValue";
-			} else if ("tenKH".equals(searchType)) {
-				hql += "kh.tenKH LIKE :searchValue";
-			} else if ("diaChi".equals(searchType)) {
-				hql += "kh.diaChi LIKE :searchValue";
-			} else if ("soDT".equals(searchType)) {
-				hql += "kh.soDT LIKE :searchValue";
-			}
-			
-			List<KhachHang> listKH = session.createQuery(hql, KhachHang.class)
-				.setParameter("searchValue", "%" + searchValue + "%")
-				.getResultList();
+			List<KhachHang> listKH = session.createNativeQuery(sql, KhachHang.class).getResultList();
 			tr.commit();
 			return listKH;
 		} catch (Exception e) {
@@ -142,28 +123,6 @@ public class KhachHangDao extends UnicastRemoteObject implements IKhachHang{
 			session.close();
 		}
 		return null;
-	}
-
-	public KhachHang findKHByTenKH(String tenKH) {
-		Session session = sessionFactory.openSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-			String hql = "FROM KhachHang WHERE tenKH = :tenKH";
-			Query<KhachHang> query = session.createQuery(hql, KhachHang.class);
-			query.setParameter("tenKH", tenKH);
-			List<KhachHang> results = query.getResultList();
-			transaction.commit();
-			return results.isEmpty() ? null : results.get(0);
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
-			}
-			e.printStackTrace();
-			return null;
-		} finally {
-			session.close();
-		}
 	}
 
 	/**

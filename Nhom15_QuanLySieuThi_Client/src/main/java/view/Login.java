@@ -47,7 +47,7 @@ public class Login extends JFrame {
         //procesed=new Process();
         frameUtil = new FrameUtil();
         try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":3030/iTaiKhoan");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":2910/iTaiKhoan");
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

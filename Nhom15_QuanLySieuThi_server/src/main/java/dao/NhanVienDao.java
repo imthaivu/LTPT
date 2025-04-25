@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import entity.KhachHang;
 import entity.NhanVien;
 import hibernateCfg.HibernateConfig;
 import iRemote.INhanVien;
@@ -31,12 +32,11 @@ public class NhanVienDao extends UnicastRemoteObject implements INhanVien{
 
 	@Override
 	public List<NhanVien> getAllNV() throws RemoteException {
-		String sql = "SELECT nv FROM NhanVien nv";
 		Session session = sessionFactory.openSession();
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			List<NhanVien> listNV = session.createQuery(sql, NhanVien.class).getResultList();
+			List<NhanVien> listNV = session.createNativeQuery("  SELECT * FROM NhanVien where TrangThai = N'Đang làm'", NhanVien.class).getResultList();
 			tr.commit();
 			return listNV;
 		} catch (Exception e) {
@@ -48,15 +48,16 @@ public class NhanVienDao extends UnicastRemoteObject implements INhanVien{
 		return null;
 	}
 
+
 	@Override
-	public NhanVien getNV(String maNV) throws RemoteException {
+	public NhanVien getNhanVien(String maNV) throws RemoteException {
 		Session session = sessionFactory.openSession();
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			NhanVien nhanVien = session.get(NhanVien.class, maNV);
+				NhanVien nv = session.find(NhanVien.class, maNV);
 			tr.commit();
-			return nhanVien;
+			return nv;
 		} catch (Exception e) {
 			e.printStackTrace();
 			tr.rollback();
@@ -108,10 +109,7 @@ public class NhanVienDao extends UnicastRemoteObject implements INhanVien{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM NhanVien nv WHERE nv.trangThai = :trangThai";
-			List<NhanVien> listNV = session.createQuery(hql, NhanVien.class)
-				.setParameter("trangThai", "Nghỉ việc")
-				.getResultList();
+			List<NhanVien> listNV = session.createNativeQuery("SELECT * FROM NhanVien WHERE TrangThai LIKE N'Nghỉ việc'", NhanVien.class).getResultList();
 			tr.commit();
 			return listNV;
 		} catch (Exception e) {
@@ -129,10 +127,7 @@ public class NhanVienDao extends UnicastRemoteObject implements INhanVien{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM NhanVien nv WHERE nv.chucVu.maCV = :maCV";
-			List<NhanVien> listNV = session.createQuery(hql, NhanVien.class)
-				.setParameter("maCV", maCV)
-				.getResultList();
+			List<NhanVien> listNV = session.createNativeQuery("SELECT * FROM NhanVien WHERE chucVu_MaCV = '" + maCV + "'", NhanVien.class).getResultList();
 			tr.commit();
 			return listNV;
 		} catch (Exception e) {

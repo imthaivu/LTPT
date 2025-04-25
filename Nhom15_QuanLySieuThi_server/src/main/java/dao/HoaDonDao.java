@@ -3,7 +3,6 @@ package dao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -34,8 +33,7 @@ public class HoaDonDao extends UnicastRemoteObject implements IHoaDon{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM HoaDon";
-			List<HoaDon> listHD = session.createQuery(hql, HoaDon.class).getResultList();
+			List<HoaDon> listHD = session.createNativeQuery("SELECT * FROM HoaDon", HoaDon.class).getResultList();
 			tr.commit();
 			return listHD;
 		} catch (Exception e) {
@@ -56,6 +54,24 @@ public class HoaDonDao extends UnicastRemoteObject implements IHoaDon{
 			HoaDon hoaDon = session.find(HoaDon.class, maHD);
 			tr.commit();
 			return hoaDon;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tr.rollback();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<HoaDon> findHD(String sql) throws RemoteException {
+		Session session = sessionFactory.openSession();
+		Transaction tr = session.getTransaction();
+		try {
+			tr.begin();
+			List<HoaDon> listHD = session.createNativeQuery(sql, HoaDon.class).getResultList();
+			tr.commit();
+			return listHD;
 		} catch (Exception e) {
 			e.printStackTrace();
 			tr.rollback();
@@ -119,32 +135,11 @@ public class HoaDonDao extends UnicastRemoteObject implements IHoaDon{
 		return false;
 	}
 
+
 	@Override
 	public boolean deleteSanPham(String maHoaDon) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public List<HoaDon> findHDByDateRange(Date startDate, Date endDate) throws RemoteException {
-		Session session = sessionFactory.openSession();
-		Transaction tr = session.getTransaction();
-		try {
-			tr.begin();
-			String hql = "FROM HoaDon WHERE ngayBan BETWEEN :startDate AND :endDate";
-			List<HoaDon> listHD = session.createQuery(hql, HoaDon.class)
-					.setParameter("startDate", startDate)
-					.setParameter("endDate", endDate)
-					.getResultList();
-			tr.commit();
-			return listHD;
-		} catch (Exception e) {
-			e.printStackTrace();
-			tr.rollback();
-		} finally {
-			session.close();
-		}
-		return null;
 	}
 
 	/**

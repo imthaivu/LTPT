@@ -51,35 +51,36 @@ public class ServerRMI {
 		ISanPham iSanPham = new SanPhamDao();
 		ITaiKhoan iTaiKhoan = new TaiKhoanDao();
 		
-		LocateRegistry.createRegistry(3030);
+		LocateRegistry.createRegistry(2910);
 		Context context=new  InitialContext();
-		context.bind("rmi://"+host+":3030/iChucVu", iChucVu);
-		context.bind("rmi://"+host+":3030/iCTHoaDon", iCTHoaDon);
-		context.bind("rmi://"+host+":3030/iHoaDon", iHoaDon);
-		context.bind("rmi://"+host+":3030/iKhachHang", iKhachHang);
-		context.bind("rmi://"+host+":3030/iLoaiSP", iLoaiSP);
-		context.bind("rmi://"+host+":3030/iNCC",iNCC );
-		context.bind("rmi://"+host+":3030/iNhanVien",iNhanVien );
-		context.bind("rmi://"+host+":3030/iSanPham",iSanPham );
-		context.bind("rmi://"+host+":3030/iTaiKhoan",iTaiKhoan );
+		context.bind("rmi://"+host+":2910/iChucVu", iChucVu);
+		context.bind("rmi://"+host+":2910/iCTHoaDon", iCTHoaDon);
+		context.bind("rmi://"+host+":2910/iHoaDon", iHoaDon);
+		context.bind("rmi://"+host+":2910/iKhachHang", iKhachHang);
+		context.bind("rmi://"+host+":2910/iLoaiSP", iLoaiSP);
+		context.bind("rmi://"+host+":2910/iNCC",iNCC );
+		context.bind("rmi://"+host+":2910/iNhanVien",iNhanVien );
+		context.bind("rmi://"+host+":2910/iSanPham",iSanPham );
+		context.bind("rmi://"+host+":2910/iTaiKhoan",iTaiKhoan );
 		System.out.println(host);
 		System.out.println("ready");
 	}
 	public static void main(String[] args) throws RemoteException, NamingException, MalformedURLException, NotBoundException {
-//		localhost
 		new ServerRMI("localhost");
+//		shotDown("192.168.1.3");
+
 //		shotDown();
 	}
 	public static void shotDown(String host) throws RemoteException, MalformedURLException, NotBoundException {
-		Naming.unbind("rmi://"+host+":3030/iChucVu");
-		Naming.unbind("rmi://"+host+":3030/iCTHoaDon");
-		Naming.unbind("rmi://"+host+":3030/iHoaDon");
-		Naming.unbind("rmi://"+host+":3030/iKhachHang");
-		Naming.unbind("rmi://"+host+":3030/iLoaiSP");
-		Naming.unbind("rmi://"+host+":3030/iNCC" );
-		Naming.unbind("rmi://"+host+":3030/iNhanVien");
-		Naming.unbind("rmi://"+host+":3030/iSanPham" );
-		Naming.unbind("rmi://"+host+":3030/iTaiKhoan" );
+		Naming.unbind("rmi://"+host+":2910/iChucVu");
+		Naming.unbind("rmi://"+host+":2910/iCTHoaDon");
+		Naming.unbind("rmi://"+host+":2910/iHoaDon");
+		Naming.unbind("rmi://"+host+":2910/iKhachHang");
+		Naming.unbind("rmi://"+host+":2910/iLoaiSP");
+		Naming.unbind("rmi://"+host+":2910/iNCC" );
+		Naming.unbind("rmi://"+host+":2910/iNhanVien");
+		Naming.unbind("rmi://"+host+":2910/iSanPham" );
+		Naming.unbind("rmi://"+host+":2910/iTaiKhoan" );
 //		UnicastRemoteObject.unexportObject(true);
 		System.exit(1);
 	}

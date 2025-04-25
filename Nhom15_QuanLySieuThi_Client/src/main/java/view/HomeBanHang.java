@@ -40,7 +40,7 @@ public class HomeBanHang extends javax.swing.JFrame implements Runnable{
         lblSoftwareName.setForeground(Color.GREEN);
         lblRun.setForeground(Color.GREEN);
         try {
-			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":3030/iTaiKhoan");
+			taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl + ":2910/iTaiKhoan");
 			account = tk;
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -206,7 +206,7 @@ public class HomeBanHang extends javax.swing.JFrame implements Runnable{
 
         lblRun.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         lblRun.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblRun.setText("Siêu Thị Mini ACEMART: 12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, TPHCM Điện thoại: 0368197963; Email: acemart@gmail.com.vn");
+        lblRun.setText("Siêu Thị Mini IUH: 12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, TPHCM Điện thoại: 0333333333; Email: IUH@gmail.com.vn");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 255, 0));
@@ -215,7 +215,7 @@ public class HomeBanHang extends javax.swing.JFrame implements Runnable{
 
         lblNhanVien.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(51, 255, 51));
-        lblNhanVien.setText("(QL01) Mai Văn Trường");
+        lblNhanVien.setText("(QL01) vuthai2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

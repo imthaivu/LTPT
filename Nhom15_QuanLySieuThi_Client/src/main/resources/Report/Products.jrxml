@@ -191,7 +191,7 @@
 				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="d0de23f5-86f1-42f5-b3d4-e4e975539078"/>
 				<staticText>
 					<reportElement x="0" y="5" width="648" height="20" forecolor="#FFFFFF" uuid="ce5bb864-fac7-4c98-a3cf-4cd611fe8cab"/>
-					<text><![CDATA[12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh: 0368197963; Email: acemart@gmail.com.vn]]></text>
+					<text><![CDATA[12 Nguyễn Văn Bảo, Phường 4, Gò Vấp, Thành phố Hồ Chí Minh: 0333333333; Email: IUH@gmail.com.vn]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="686" y="5" width="76" height="20" forecolor="#FFFFFF" uuid="0494224b-ec48-4b64-a529-edddf342fc53"/>

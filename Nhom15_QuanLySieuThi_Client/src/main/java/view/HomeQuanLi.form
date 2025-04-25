@@ -209,7 +209,7 @@
               <Font name="Tahoma" size="20" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="C&#x1eed;a h&#xe0;ng th&#x1edd;i trang ACEMART: 12 Nguy&#x1ec5;n V&#x103;n B&#x1ea3;o, Ph&#x1b0;&#x1edd;ng 4, G&#xf2; V&#x1ea5;p, TPHCM &#x110;i&#x1ec7;n tho&#x1ea1;i: 0368197963; Email: acemart@gmail.com.vn"/>
+            <Property name="text" type="java.lang.String" value="C&#x1eed;a h&#xe0;ng th&#x1edd;i trang IUH: 12 Nguy&#x1ec5;n V&#x103;n B&#x1ea3;o, Ph&#x1b0;&#x1edd;ng 4, G&#xf2; V&#x1ea5;p, TPHCM &#x110;i&#x1ec7;n tho&#x1ea1;i: 0333333333; Email: IUH@gmail.com.vn"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">

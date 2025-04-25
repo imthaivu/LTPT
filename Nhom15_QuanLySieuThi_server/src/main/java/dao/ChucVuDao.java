@@ -33,8 +33,7 @@ public class ChucVuDao extends UnicastRemoteObject implements IChucVu{
 		Transaction tr = session.getTransaction();
 		try {
 			tr.begin();
-			String hql = "FROM ChucVu";
-			List<ChucVu> listCV = session.createQuery(hql, ChucVu.class).getResultList();
+			List<ChucVu> listCV = session.createNativeQuery("SELECT * FROM ChucVu", ChucVu.class).getResultList();
 			tr.commit();
 			return listCV;
 		} catch (Exception e) {

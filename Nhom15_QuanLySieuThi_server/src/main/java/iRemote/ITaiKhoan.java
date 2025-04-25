@@ -14,11 +14,4 @@ public interface ITaiKhoan extends Remote{
 	public boolean themTaiKhoan(TaiKhoan taiKhoan) throws RemoteException;
 	public boolean suaTaiKhoan(TaiKhoan taiKhoan) throws RemoteException;
 	public boolean xoaTaiKhoan(String tenTaiKhoan) throws RemoteException;
-
-
-	public boolean addTaiKhoan(TaiKhoan taiKhoan) throws RemoteException;
-
-	public boolean updateTaiKhoan(TaiKhoan taiKhoan) throws RemoteException;
-
-	public boolean deleteTaiKhoan(String maTK) throws RemoteException;
 }

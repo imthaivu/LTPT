@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.Color;
@@ -31,7 +32,7 @@ public class ChangePassWord extends javax.swing.JFrame {
         lblStatus.setForeground(Color.red);
         Disbled(); // Tắt đi những ô input chưa cần thiết
         
-        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":3030/iTaiKhoan"); // Gọi đến đối tượng Process kết nối với csdl
+        taiKhoanDao = (ITaiKhoan) Naming.lookup("rmi://" + rmiUrl +":2910/iTaiKhoan"); // Gọi đến đối tượng Process kết nối với csdl
         loadComboBox(); // Load những tài khoản có trong csdl
         
     }
@@ -57,9 +58,9 @@ public class ChangePassWord extends javax.swing.JFrame {
     }
     // Load những tài khoản có trong csdl
     private void loadComboBox() throws RemoteException{
-        List<TaiKhoan> arry = taiKhoanDao.getAllTaiKhoan();
-        for (TaiKhoan tk : arry) {
-            this.cbxUserName.addItem(tk.getTaiKhoan());
+        List<TaiKhoan> arry= taiKhoanDao.getAllTaiKhoan(); // Lấy danh sách tài khoản lưu vào mảng
+        for(int i=0; i<arry.size();i++){
+            this.cbxUserName.addItem(((TaiKhoan)arry.get(i)).getTaiKhoan());
         }
     }
     
@@ -336,25 +337,17 @@ public class ChangePassWord extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {//GEN-FIRST:event_btnOKActionPerformed
-        if (checkNull()) {
-            if (String.valueOf(passWord1.getPassword()).equals(String.valueOf(passWord2.getPassword()))) {
-                System.out.println((String)cbxUserName.getSelectedItem().toString());
-                if (taiKhoanDao.getTaiKhoanByUserNamePassword(cbxUserName.getSelectedItem().toString(), 
-                    String.copyValueOf(passWord.getPassword())) != null) {
-                    taiKhoanDao.changePassWord(
-                        (String)cbxUserName.getSelectedItem(), 
-                        String.copyValueOf(passWord.getPassword()),
-                        String.copyValueOf(passWord1.getPassword())
-                    );
-                    Refresh();
-                    lblStatus.setText("Đổi mật khẩu thành công!");
-                } else {
-                    lblStatus.setText("Mật khẩu hiện tại không đúng!");
-                }
-            } else {
-                lblStatus.setText("Mật khẩu mới không trùng khớp!");
+        // TODO add your handling code here:
+        if(checkNull()) // Kiểm tra nhập liệu có null hay không
+        if(taiKhoanDao.getTaiKhoanByUserNamePassword(cbxUserName.getSelectedItem().toString(), String.copyValueOf(passWord.getPassword())) != null){ //Kiểm tra tài khoản và mật khẩu 
+            if( String.valueOf(this.passWord1.getPassword()).equals(String.valueOf(this.passWord2.getPassword()))){ // Kiểm tra mật khẩu và nhập lại mật khẩu
+            	taiKhoanDao.changePassWord((String)cbxUserName.getSelectedItem(), String.copyValueOf(passWord.getPassword()),String.copyValueOf(passWord1.getPassword())); // Thay đổi mật khẩu
+                Disbled(); // Tắt đi các nút
+                lblStatus.setText("Đổi mật khẩu thành công!");
             }
+            else lblStatus.setText("Nhập lại mật khẩu mới không chính xác!");
         }
+        else    lblStatus.setText("Mật khẩu hiện tại bạn nhập không chính xác!");
     }//GEN-LAST:event_btnOKActionPerformed
     // Event nút back
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

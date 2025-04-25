@@ -71,7 +71,7 @@
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Điện thoại: 036819763; Email: acemart@gmail.com.vn]]></text>
+				<text><![CDATA[Điện thoại: 036819763; Email: IUH@gmail.com.vn]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="51" width="50" height="12" uuid="eb70d327-4758-4304-8c28-378d96c4b2a8"/>
