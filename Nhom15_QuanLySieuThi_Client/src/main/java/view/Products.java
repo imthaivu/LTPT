@@ -217,10 +217,7 @@ public class Products extends javax.swing.JFrame {
 	// Kiểm tra null các ô input tab cập nhật sản phẩm
 	public boolean checkNull() {
 		boolean kq = true;
-		if (String.valueOf(this.txbID.getText()).length() == 0) {
-			lblStatus.setText("Bạn chưa nhập mã cho sản phẩm!");
-			return false;
-		}
+		
 		if (String.valueOf(this.txbName.getText()).length() == 0) {
 			lblStatus.setText("Bạn chưa nhập Tên sản phẩm!");
 			return false;
